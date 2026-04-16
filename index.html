@@ -343,13 +343,11 @@ I'll analyze the camera images for ground zones and implement the new system. He
     #cam-wrap {
       position: absolute;
       z-index: 2;
-      top: 50%;
+      top: 3%;
       left: 50%;
-      transform: translate(-50%, -50%);
-      width: 70vw;
-      height: 50vh;
-      max-width: 900px;
-      max-height: 500px;
+      transform: translateX(-50%);
+      width: 70%;
+      height: 60%;
       display: none;
     }
 
@@ -735,50 +733,20 @@ I'll analyze the camera images for ground zones and implement the new system. He
       font-size: 18px;
     }
 
-    /* Ghost Timer */
-    #ghost-timer {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 100;
-      color: #ff3333;
-      font-family: 'Courier New', monospace;
-      font-size: 72px;
-      font-weight: bold;
-      text-shadow: 0 0 30px #ff3333, 0 0 60px #ff0000;
-      animation: ghost-timer-pulse 1s infinite;
-      pointer-events: none;
-    }
-
-    @keyframes ghost-timer-pulse {
-
-      0%,
-      100% {
-        transform: translate(-50%, -50%) scale(1);
-        text-shadow: 0 0 30px #ff3333, 0 0 60px #ff0000;
-      }
-
-      50% {
-        transform: translate(-50%, -50%) scale(1.1);
-        text-shadow: 0 0 50px #ff3333, 0 0 100px #ff0000, 0 0 150px #ff0000;
-      }
-    }
-
     /* Toggle button */
     #toggle-btn {
-      position: fixed;
-      bottom: 2vh;
+      position: absolute;
+      bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
       background: none;
       border: 2px solid #00ff50;
       color: #00ff50;
-      padding: 0.8vh 2vw;
+      padding: 12px 24px;
       cursor: pointer;
       font-family: inherit;
-      font-size: clamp(12px, 1.2vw, 16px);
-      z-index: 5;
+      font-size: 16px;
+      z-index: 3;
       font-weight: bold;
       transition: all 0.2s;
     }
@@ -790,21 +758,18 @@ I'll analyze the camera images for ground zones and implement the new system. He
 
     /* Panel with SVG map */
     #panel {
-      position: fixed;
-      bottom: 6vh;
+      position: absolute;
+      bottom: 80px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.8);
       border: 2px solid #00ff50;
-      padding: 0.8vh 1vw;
+      padding: 15px;
       color: #00ff50;
       font-family: 'Courier New', monospace;
-      font-size: clamp(11px, 1vw, 14px);
-      z-index: 4;
+      font-size: 14px;
+      z-index: 3;
       display: none;
-      max-width: 90vw;
-      overflow-x: auto;
-      box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.8);
     }
 
     #panel.visible {
@@ -812,17 +777,14 @@ I'll analyze the camera images for ground zones and implement the new system. He
     }
 
     #panel-title {
-      margin-bottom: 0.5vh;
+      margin-bottom: 15px;
       text-align: center;
-      font-size: clamp(11px, 1vw, 14px);
+      font-size: 16px;
     }
 
     #map-svg {
-      width: 100%;
-      max-width: 600px;
-      height: auto;
-      min-height: clamp(120px, 15vh, 180px);
-      max-height: clamp(160px, 20vh, 220px);
+      width: 650px;
+      height: 220px;
     }
 
     /* Camera nodes in SVG */
@@ -835,7 +797,7 @@ I'll analyze the camera images for ground zones and implement the new system. He
       background: #111;
       border: 3px solid #00ff50;
       color: #00ff50;
-      font-size: clamp(9px, 0.9vw, 12px);
+      font-size: 11px;
       cursor: pointer;
       transition: all 0.2s;
       position: relative;
@@ -858,7 +820,7 @@ I'll analyze the camera images for ground zones and implement the new system. He
       position: absolute;
       bottom: 1px;
       right: 3px;
-      font-size: clamp(7px, 0.7vw, 10px);
+      font-size: 9px;
       opacity: 0.7;
     }
 
@@ -872,7 +834,7 @@ I'll analyze the camera images for ground zones and implement the new system. He
       background: #1a0a0a;
       border: 3px solid #ff3333;
       color: #ff3333;
-      font-size: clamp(9px, 0.9vw, 12px);
+      font-size: 11px;
       font-weight: bold;
       text-shadow: 0 0 8px #ff3333;
       animation: you-pulse 2s infinite;
@@ -1094,106 +1056,31 @@ I'll analyze the camera images for ground zones and implement the new system. He
       object-fit: cover;
     }
 
-    #officestein-img {
+    #screamer-knock-text {
       position: absolute;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      top: 0;
-      right: 0;
-      display: none;
-    }
-
-    #spam-text {
-      position: absolute;
-      top: 40%;
+      top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      color: #ff3333;
-      font-size: 48px;
+      color: #fff;
+      font-size: 36px;
       font-family: 'Courier New', monospace;
-      text-shadow: 0 0 30px #ff3333, 0 0 60px #ff0000;
+      text-shadow: 0 0 20px #fff;
       letter-spacing: 4px;
       display: none;
-      animation: pulse-glow 0.8s infinite;
+      animation: blink-text 0.8s infinite;
       text-align: center;
-      font-weight: bold;
     }
 
-    #spam-timer {
-      position: absolute;
-      top: 52%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #ffdd00;
-      font-size: 64px;
-      font-family: 'Courier New', monospace;
-      text-shadow: 0 0 30px #ffdd00, 0 0 60px #ff8800;
-      display: none;
-      animation: pulse-glow 0.8s infinite;
-      text-align: center;
-      font-weight: bold;
-    }
-
-    @keyframes pulse-glow {
+    @keyframes blink-text {
 
       0%,
-      100% {
+      49% {
         opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
       }
 
-      50% {
-        opacity: 0.7;
-        transform: translate(-50%, -50%) scale(1.05);
-      }
-    }
-
-    #fullscreen-static {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 250;
-      display: none;
-      background: #000;
-      animation: static-noise-fullscreen 0.05s infinite;
-    }
-
-    #fullscreen-static.visible {
-      display: block;
-    }
-
-    @keyframes static-noise-fullscreen {
-      0% {
-        background: #111;
-        filter: brightness(0.2) contrast(3) saturate(0);
-      }
-
-      20% {
-        background: #222;
-        filter: brightness(0.3) contrast(2.5) saturate(0);
-      }
-
-      40% {
-        background: #0a0a0a;
-        filter: brightness(0.15) contrast(3.5) saturate(0);
-      }
-
-      60% {
-        background: #1a1a1a;
-        filter: brightness(0.25) contrast(3) saturate(0);
-      }
-
-      80% {
-        background: #050505;
-        filter: brightness(0.1) contrast(4) saturate(0);
-      }
-
+      50%,
       100% {
-        background: #111;
-        filter: brightness(0.2) contrast(3) saturate(0);
+        opacity: 0.2;
       }
     }
 
@@ -1322,114 +1209,6 @@ I'll analyze the camera images for ground zones and implement the new system. He
       font-size: 12px;
       opacity: 0.6;
     }
-
-    /* Fade to black transition */
-    #fade-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #000;
-      opacity: 0;
-      pointer-events: none;
-      z-index: 199;
-      transition: opacity 0.5s ease-in-out;
-    }
-
-    #fade-overlay.fade-in {
-      opacity: 1;
-    }
-
-    /* Responsive adjustments for smaller screens */
-    @media (max-width: 1400px) {
-      #cam-wrap {
-        width: 75vw;
-        height: 48vh;
-      }
-    }
-
-    @media (max-width: 1024px) {
-      #cam-wrap {
-        width: 80vw;
-        height: 46vh;
-      }
-    }
-
-    @media (max-width: 768px) {
-      #cam-wrap {
-        width: 88vw;
-        height: 44vh;
-      }
-
-      #hud {
-        top: 1vh;
-        left: 1vw;
-      }
-
-      #hud-night {
-        font-size: clamp(16px, 2vh, 20px);
-      }
-
-      #hud-hour {
-        font-size: clamp(13px, 1.6vh, 16px);
-      }
-
-      #hud-bar {
-        width: clamp(120px, 15vw, 180px);
-      }
-
-      #rage-hud {
-        font-size: clamp(11px, 1.4vh, 14px);
-      }
-
-      #rage-bar-wrapper {
-        width: clamp(120px, 15vw, 180px);
-      }
-    }
-
-    @media (max-width: 480px) {
-      #cam-wrap {
-        width: 92vw;
-        height: 42vh;
-      }
-
-      #cam-ui {
-        font-size: clamp(10px, 1.1vw, 13px);
-      }
-    }
-
-    @media (max-height: 700px) {
-      #cam-wrap {
-        height: 40vh;
-      }
-
-      #map-svg {
-        min-height: clamp(100px, 12vh, 140px);
-        max-height: clamp(140px, 16vh, 180px);
-      }
-    }
-
-    @media (max-height: 600px) {
-      #cam-wrap {
-        height: 38vh;
-      }
-
-      #panel {
-        bottom: 5vh;
-        padding: 0.5vh 0.8vw;
-      }
-
-      #toggle-btn {
-        bottom: 1.5vh;
-        padding: 0.6vh 1.5vw;
-      }
-
-      #map-svg {
-        min-height: clamp(80px, 10vh, 120px);
-        max-height: clamp(120px, 14vh, 160px);
-      }
-    }
   </style>
 </head>
 
@@ -1513,16 +1292,11 @@ I'll analyze the camera images for ground zones and implement the new system. He
 
     <div id="screenshots-hud">SCREENSHOTS: 0/4</div>
 
-    <!-- Ghost Timer -->
-    <div id="ghost-timer" style="display: none;">15.000</div>
-
     <div id="controls-hint">
       [1-9] Switch Cams | [10][11] Quick press | [←→↑↓] Pan | [S] Screenshot | [H] Honk
     </div>
 
     <div id="stun-overlay"></div>
-
-    <div id="fade-overlay"></div>
 
     <button id="toggle-btn">▲ CAMERAS</button>
 
@@ -1541,21 +1315,16 @@ I'll analyze the camera images for ground zones and implement the new system. He
     </div>
 
     <div id="survived">
-      <span>YOU WON</span>
-      <p style="font-size:24px;margin-top:20px;">5 AM — You survived the night</p>
+      <span>5 AM — YOU SURVIVED!</span>
+      <p style="font-size:24px;margin-top:20px;">Screenshots collected: <span id="final-screenshots">0</span>/4</p>
     </div>
   </div>
 
   <!-- Screamer Scene -->
   <div id="screamer-scene">
     <img id="screamer-office" src="room.png" alt="Office">
-    <img id="officestein-img" src="officestein.png" alt="Office Stein">
-    <div id="spam-text">SPAM SPACE BAR TO HIDE</div>
-    <div id="spam-timer">5.000</div>
+    <div id="screamer-knock-text">PRESS E TO HIDE</div>
   </div>
-
-  <!-- Fullscreen Static Overlay -->
-  <div id="fullscreen-static"></div>
 
   <!-- Hide Scene -->
   <div id="hide-scene">
@@ -1587,23 +1356,25 @@ I'll analyze the camera images for ground zones and implement the new system. He
     // STORYLINE DATA
     // ═══════════════════════════════════════════════════════════════════════════
     const STORYLINE = [
-      "Welcome to Big Stein Island. You've been hired as a night security operator to monitor the facility through CCTV cameras.",
-      "Your mission: capture 1 clear photograph of Big Stein and survive until 5 AM. Use the S key to take screenshots when you spot him on the cameras.",
-      "Big Stein roams the facility freely. Switch between cameras using number keys [1-9] or click the camera map. Use ZOOM and arrow keys [←→↑↓] to pan around and spot him in dark corners.",
-      "WARNING: Taking a screenshot triggers a camera flash. Big Stein will notice and become hostile, moving toward your office. The more you provoke him, the faster he moves — watch the Rage Meter on your HUD.",
-      "You have limited defensive tools: HONK (H key) to lure him away from nearby cameras, ⚡ FLASH to stun him temporarily (3 uses only), and 📯 DECOY to reset his position completely (3 uses only). Use them wisely.",
-      "Big Stein's movements can overload the electrical grid, causing camera outages. If cameras go offline, close the camera view and use the ELECTRICITY PANEL on the left to reboot them. You cannot monitor while cameras are down.",
-      "Something else lurks in the facility. If you see a countdown timer appear, find and click on what triggered it before time runs out. Failure is not an option.",
-      "Your real goal is survival. Stall Big Stein using every tool available. If you make it to 5 AM, you win. If he reaches you... well, you'll find out.",
-      "Good luck, operator."
+      "You were selected as a night CCTV operator on the Big Stein Island.",
+      "Your goal is simple: take 1 screenshot of Big Stein whenever you spot him on the cameras, and survive until 5 AM. The researchers need photographic evidence — use the S key to snap a photo when you see him.",
+      "The Big Stein can appear on any camera at any time, so stay vigilant and keep switching between feeds. He can be hard to spot, so don't hesitate to use the ZOOM button and pan the camera around with the ← and → arrow keys.",
+      "But beware — the screenshot triggers a bright flash on the CCTV camera. Big Stein will notice it, he will become aggressive and start moving through the corridors toward you.",
+      "To defend yourself, you can use the HONK (H) to try to lure him back. Honking on a camera near his location might distract him, but he won't hear it if you honk on the other side of the map! It has a 17-second cooldown Notice: there is a chance that the honk won't work.",
+      "If Big Stein is aggressive and on your current camera, you can use the ⚡ FLASH button to stun him. The flash blinds him for 10 seconds and pushes him back one camera. You only have 3 flashes for the entire night, so use them in critical moments.",
+      "Be careful: taking screenshots and honking repeatedly makes Big Stein incredibly angry. You can track his aggression level on your HUD's Rage Meter. The angrier he becomes, the faster he will approach you.",
+      "In absolute emergencies, you have 3 map-wide SOUND DECOYS. These will instantly trick his sensors, send him all the way back to where he started, and reset his Rage entirely. Use them wisely — they're your last resort.",
+      "There's one more thing: Big Stein's sheer mass can cause massive electrical surges that blow out the camera grid. If the cameras lose power, you must close the cameras (▲ CAMERAS) and use the breaker panel on the LEFT side of your screen to manually reboot any broken cameras.",
+      "Remember: your real objective is to stall. Use every tool at your disposal — honks, decoys, flashes, and the electrical panel — to keep Big Stein at bay and buy yourself time. If you can hold out until 5 AM, you win If he reaches your office... it's over.",
+      "Good luck!"
     ];
 
     // ═══════════════════════════════════════════════════════════════════════════
     // CONFIG
     // ═══════════════════════════════════════════════════════════════════════════
-    const NIGHT_SEC = 6 * 60; // 6 minutes
+    const NIGHT_SEC = 15 * 60; // 15 minutes
     const HOURS = ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM"];
-    const REQUIRED_SCREENSHOTS = 1;
+    const REQUIRED_SCREENSHOTS = 4;
     const BIGSTEIN_SPAWN_DELAY = 30; // seconds before Big Stein spawns
     const PASSIVE_MOVE_DELAY = 20000; // 20 seconds before passive move
     const AGGRESSIVE_STARE_TIME = 3000; // 3 seconds staring after screenshot
@@ -1726,8 +1497,6 @@ I'll analyze the camera images for ground zones and implement the new system. He
     let flashUses = 3;
     let flashCooldown = false;
     let outageActive = false;
-    let outageTimeout = null;
-    const OUTAGE_COOLDOWN = 30000; // 30 seconds
     let activeCam = 0;
     let zoomed = false;
     let currentZoomLevel = 0;
@@ -1784,19 +1553,16 @@ I'll analyze the camera images for ground zones and implement the new system. He
       firstSeenTime: 0,
       moveCount: 0, // Track number of aggressive moves
       lastMoveWasScreenshot: false, // Track if last move was triggered by screenshot
-      rageAccumulation: 0, // How many seconds taken off movement (max 5)
+      nextMoveDelay: 17000, // 17 seconds base delay
+      rageSpeed: 17000,
       hasDoneFirstAggressiveMove: false,
-      visualVar: 0, // Store random chance per camera visit
-      useOfficestein: false, // 40% chance to use officestein instead of character
-      screenshotToggle: false // Toggle between character.png and officestein.png after screenshots
+      visualVar: 0 // Store random chance per camera visit
     };
 
     const imgs = new Array(CAMS.length).fill(null);
     let bigSteinBackImg = null;
     let bigSteinFrontImg = null;
     let bigSteinInvertedImg = null;
-    let officesteinImg = null;
-    let ghostImg = null;
     let churchBellAudio = null;
     let alarmAudio = null;
     let stuntFlashAudio = null;
@@ -1813,17 +1579,6 @@ I'll analyze the camera images for ground zones and implement the new system. He
     let buttonsfxAudio = null;
     let zoominAudio = null;
     let zoomoutAudio = null;
-
-    // Ghost mechanic state
-    let ghostActive = false;
-    let ghostCamera = -1;
-    let ghostSpawnTime = 0;
-    let ghostTimeout = null;
-    let ghostCountdownInterval = null;
-    let ghostInterval = null;
-    let nextGhostSpawn = 15000; // 15 seconds
-    let ghostX = 50;
-    let ghostY = 50;
 
     // ═══════════════════════════════════════════════════════════════════════════
     // DOM REFS
@@ -1942,7 +1697,7 @@ I'll analyze the camera images for ground zones and implement the new system. He
     function loadAll() {
       return new Promise(resolve => {
         let done = 0;
-        const total = CAMS.length + 7;
+        const total = CAMS.length + 6;
 
         function progress() {
           done++;
@@ -1981,16 +1736,6 @@ I'll analyze the camera images for ground zones and implement the new system. He
         bigSteinInvertedImg.onload = progress;
         bigSteinInvertedImg.onerror = progress;
         bigSteinInvertedImg.src = 'bigsteininvert.png';
-
-        officesteinImg = new Image();
-        officesteinImg.onload = progress;
-        officesteinImg.onerror = progress;
-        officesteinImg.src = 'officestein.png';
-
-        ghostImg = new Image();
-        ghostImg.onload = progress;
-        ghostImg.onerror = progress;
-        ghostImg.src = 'ghost.png';
 
         const otherAssets = ['lobby.png', 'bigstein.jpeg', 'storylinebackround.png', 'room.png'];
         otherAssets.forEach(src => {
@@ -2087,7 +1832,8 @@ I'll analyze the camera images for ground zones and implement the new system. He
       bigStein.firstSeenTime = 0;
       bigStein.moveCount = 0;
       bigStein.lastMoveWasScreenshot = false;
-      bigStein.rageAccumulation = 0;
+      bigStein.nextMoveDelay = 17000;
+      bigStein.rageSpeed = 17000;
       bigStein.hasDoneFirstAggressiveMove = false;
       bigStein.visualVar = Math.random();
       camPower.fill('ON');
@@ -2123,30 +1869,12 @@ I'll analyze the camera images for ground zones and implement the new system. He
           resizeCanvas();
           selectCam(0);
           console.log('startGame: Canvas resized and camera 0 selected');
-
-          // Start ghost mechanic
-          startGhostMechanic();
         });
       });
     }
 
     function showGameOver(reason) {
       if (alarmAudio) alarmAudio.pause();
-      if (ghostInterval) {
-        clearInterval(ghostInterval);
-        ghostInterval = null;
-      }
-      if (ghostTimeout) {
-        clearTimeout(ghostTimeout);
-        ghostTimeout = null;
-      }
-      if (ghostCountdownInterval) {
-        clearInterval(ghostCountdownInterval);
-        ghostCountdownInterval = null;
-      }
-      ghostActive = false;
-      document.getElementById('ghost-timer').style.display = 'none';
-
       gameOver = true;
       gameState = 'gameover';
       gameoverReason.textContent = reason;
@@ -2160,7 +1888,6 @@ I'll analyze the camera images for ground zones and implement the new system. He
       gameDiv.classList.remove('visible');
       staticOverlay.classList.remove('visible');
       camCanvas.classList.remove('static');
-
       storyIndex = 0;
       showStoryline();
     }
@@ -2193,10 +1920,6 @@ I'll analyze the camera images for ground zones and implement the new system. He
       bigStein.targetX = 20 + Math.random() * 60;
       bigStein.targetY = groundZone.minY + Math.random() * (groundZone.maxY - groundZone.minY);
       bigStein.speed = 0.015 + Math.random() * 0.01;
-
-      // Always spawn with backcharacter.png (not officestein)
-      bigStein.useOfficestein = false;
-      console.log(`Big Stein spawned PASSIVE on CAM ${camIndex + 1} with backcharacter.png`);
 
       playChurchBell();
       console.log(`Big Stein spawned PASSIVE on CAM ${camIndex + 1}`);
@@ -2260,7 +1983,7 @@ I'll analyze the camera images for ground zones and implement the new system. He
       console.log(`Big Stein moved PASSIVELY to CAM ${bigStein.camera + 1}`);
     }
 
-    function moveBigSteinToCamera(newCam, silent = false, fromScreenshot = false) {
+    function moveBigSteinToCamera(newCam, silent = false) {
       const groundZone = getGroundZone(newCam);
       bigStein.camera = newCam;
       bigStein.x = 20 + Math.random() * 60;
@@ -2268,16 +1991,6 @@ I'll analyze the camera images for ground zones and implement the new system. He
       bigStein.targetX = 20 + Math.random() * 60;
       bigStein.targetY = groundZone.minY + Math.random() * (groundZone.maxY - groundZone.minY);
       bigStein.visualVar = Math.random();
-
-      // In AGGRESSIVE mode: 50% chance for character.png or officestein.png on every move
-      // In PASSIVE mode: always use backcharacter.png
-      if (bigStein.state === BIGSTEIN_STATE.AGGRESSIVE) {
-        bigStein.useOfficestein = Math.random() < 0.5;
-        console.log(`Big Stein moved to CAM ${newCam + 1} (AGGRESSIVE) with ${bigStein.useOfficestein ? 'officestein' : 'character'}.png (50/50)`);
-      } else {
-        bigStein.useOfficestein = false;
-        console.log(`Big Stein moved to CAM ${newCam + 1} (PASSIVE) with backcharacter.png`);
-      }
 
       if (!silent && gameState === 'game' && camOpen && activeCam === newCam && camPower[activeCam] === 'ON') {
         if (!bigStein.isInStatic) {
@@ -2300,10 +2013,8 @@ I'll analyze the camera images for ground zones and implement the new system. He
 
       bigStein.state = BIGSTEIN_STATE.AGGRESSIVE;
       bigStein.hasBeenSeen = false;
-      bigStein.useOfficestein = false; // Always use character.png when first turning aggressive
-      bigStein.screenshotToggle = true; // Set to true so first MOVE will be officestein.png
 
-      console.log(`Big Stein turned AGGRESSIVE with character.png!`);
+      console.log(`Big Stein turned AGGRESSIVE!`);
       updateRageUI();
 
       // He turns to face you instantly.
@@ -2325,7 +2036,6 @@ I'll analyze the camera images for ground zones and implement the new system. He
         if (!bigStein.hasBeenSeen) {
           bigStein.hasBeenSeen = true;
           bigStein.firstSeenTime = now;
-          console.log("Big Stein spotted! Speed set to 7 seconds base");
         }
 
         // If the player opens a cam where Big Stein is seen, after 3 seconds he will move 1 cam up (closer)
@@ -2333,12 +2043,10 @@ I'll analyze the camera images for ground zones and implement the new system. He
           triggerStaticAndMoveCloser();
         }
       } else {
-        // Reset hasBeenSeen when player looks away
         bigStein.hasBeenSeen = false;
 
-        // Calculate current movement speed based on base + rage accumulation
-        const baseSpeed = bigStein.hasBeenSeen ? 7000 : 10000; // 7 seconds if spotted, 10 if not
-        const currentSpeed = baseSpeed - (bigStein.rageAccumulation * 1000); // rageAccumulation is in seconds
+        // Background movement scales with rage
+        let currentSpeed = bigStein.rageSpeed || 17000;
 
         // Slow down if ANY camera is broken
         let isOutage = false;
@@ -2348,19 +2056,18 @@ I'll analyze the camera images for ground zones and implement the new system. He
             break;
           }
         }
-        let finalSpeed = currentSpeed;
         if (isOutage) {
-          finalSpeed += 1500;
+          currentSpeed += 1500;
         }
 
-        if (now - bigStein.lastMoveTime >= finalSpeed) {
+        if (now - bigStein.lastMoveTime >= currentSpeed) {
           moveCloserToPlayer();
           bigStein.lastMoveTime = now;
         }
       }
     }
 
-    function triggerStaticAndMoveCloser(fromScreenshot = false) {
+    function triggerStaticAndMoveCloser() {
       if (bigStein.isInStatic) return;
 
       bigStein.isInStatic = true;
@@ -2384,8 +2091,8 @@ I'll analyze the camera images for ground zones and implement the new system. He
         bigStein.isInStatic = false;
         bigStein.hasBeenSeen = false;
 
-        // Find path to move closer to YOU - pass fromScreenshot flag
-        moveCloserToPlayer(true, fromScreenshot);
+        // Find path to move closer to YOU - mark as triggered by screenshot
+        moveCloserToPlayer(true, true);
 
         bigStein.lastMoveTime = Date.now();
       }, 2000);
@@ -2426,15 +2133,25 @@ I'll analyze the camera images for ground zones and implement the new system. He
 
       if (currentCam === 0) {
         // Big Stein reached CAM 1 — he silently disappears off all cameras.
-        // Player must spam spacebar 40 times within 5 seconds to hide.
+        // Player must notice he's gone and hide within 5 seconds.
         bigStein.camera = -1;
         bigStein.isInStatic = false;
         hideReady = true;
         screamerActive = true;
-        console.log('Big Stein vanished from CAM 1! Spam spacebar challenge starting...');
+        console.log('Big Stein vanished from CAM 1! 5 seconds to hide.');
 
-        // Start the spam spacebar challenge
-        startSpamChallenge();
+        if (isHiding) {
+          // Player is already hiding! Trigger walker scene immediately
+          triggerHideWalkerScene();
+        } else {
+          // 5-second countdown — if player hasn't hidden, instant jumpscare
+          hideTimer = setTimeout(() => {
+            if (hideReady) {
+              hideReady = false;
+              triggerInstantJumpscare();
+            }
+          }, 5000);
+        }
         return;
       }
 
@@ -2453,17 +2170,34 @@ I'll analyze the camera images for ground zones and implement the new system. He
       }
 
       if (bestCam !== currentCam) {
-        moveBigSteinToCamera(bestCam, silent, triggeredByScreenshot);
-        console.log(`Big Stein moved AGGRESSIVELY to CAM ${bestCam + 1} (dist: ${bestDist})${triggeredByScreenshot ? ' [FROM SCREENSHOT]' : ''}`);
+        moveBigSteinToCamera(bestCam, silent);
+        console.log(`Big Stein moved AGGRESSIVELY to CAM ${bestCam + 1} (dist: ${bestDist})`);
 
         // Increment move count
         bigStein.moveCount++;
 
-        // Electricity outage: 25% chance when Big Stein moves, with 30-second cooldown
+        // Evaluate Electricity Triggers based on new mechanic
+        // Move 1 (after screenshot): 60% chance
+        // Move 2: 0% chance (never)
+        // Move 3+: 30% chance (excluding move 2)
+
         const isCurrentlyBroken = camPower.some(p => p !== 'ON');
         if (!isCurrentlyBroken && !outageActive) {
-          const shouldTriggerOutage = Math.random() < 0.25;
-          console.log(`Electricity check: Move ${bigStein.moveCount} - ${shouldTriggerOutage ? 'TRIGGERED (25%)' : 'no outage (75%)'}`);
+          let shouldTriggerOutage = false;
+
+          if (triggeredByScreenshot && bigStein.moveCount === 1) {
+            // First move after screenshot: 60% chance
+            shouldTriggerOutage = Math.random() < 0.60;
+            console.log(`Electricity check: Move 1 after screenshot - ${shouldTriggerOutage ? 'TRIGGERED (60%)' : 'no outage (40%)'}`);
+          } else if (bigStein.moveCount === 2) {
+            // Second move: 0% chance (never trigger)
+            shouldTriggerOutage = false;
+            console.log(`Electricity check: Move 2 - no outage (0% chance)`);
+          } else {
+            // All other moves: 30% chance
+            shouldTriggerOutage = Math.random() < 0.30;
+            console.log(`Electricity check: Move ${bigStein.moveCount} - ${shouldTriggerOutage ? 'TRIGGERED (30%)' : 'no outage (70%)'}`);
+          }
 
           if (shouldTriggerOutage) {
             triggerOutage();
@@ -2501,26 +2235,14 @@ I'll analyze the camera images for ground zones and implement the new system. He
       }
 
       // Default rendering logic
-      // After screenshot: 50/50 between officestein and character.png (always front-facing when aggressive)
-      let useImg;
-      if (bigStein.useOfficestein && officesteinImg && officesteinImg.complete && officesteinImg.naturalWidth > 0) {
-        useImg = officesteinImg;
-      } else {
-        // When aggressive, always use front-facing character
-        // When passive, use back-facing character
-        useImg = (bigStein.state === BIGSTEIN_STATE.AGGRESSIVE) ? bigSteinFrontImg : bigSteinBackImg;
-      }
-
+      const useImg = (bigStein.state === BIGSTEIN_STATE.AGGRESSIVE) ? bigSteinFrontImg : bigSteinBackImg;
       if (!useImg || !useImg.complete || useImg.naturalWidth === 0) return;
 
       const img = imgs[activeCam];
       if (!img || !img.complete) return;
 
       const isAggressive = bigStein.state === BIGSTEIN_STATE.AGGRESSIVE;
-      // Officestein is slightly bigger than character
-      const baseSize = bigStein.useOfficestein
-        ? (isAggressive ? canvasH * 0.5 : canvasH * 0.35)
-        : (isAggressive ? canvasH * 0.4 : canvasH * 0.25);
+      const baseSize = isAggressive ? canvasH * 0.4 : canvasH * 0.25;
       const zoomedExtra = isAggressive ? canvasH * 0.35 : canvasH * 0.2;
       let steinSize = baseSize + (zoomedExtra * currentZoomLevel);
 
@@ -2551,237 +2273,6 @@ I'll analyze the camera images for ground zones and implement the new system. He
         steinDisplayY - steinSize,
         steinSize,
         steinSize
-      );
-    }
-
-    // ═══════════════════════════════════════════════════════════════════════════
-    // GHOST MECHANIC
-    // ═══════════════════════════════════════════════════════════════════════════
-    function startGhostMechanic() {
-      if (gameState !== 'game') return;
-
-      // Wait 45 seconds before starting ghost spawns (30s for Big Stein + 15s delay)
-      setTimeout(() => {
-        if (gameState !== 'game') return;
-
-        // Spawn first ghost immediately after the delay
-        spawnGhost();
-
-        // Then continue spawning every 25 seconds
-        ghostInterval = setInterval(() => {
-          if (gameState !== 'game' || ghostActive) return;
-
-          // Check if electricity panel is open
-          if (elecOverlay.classList.contains('visible')) {
-            console.log("Ghost spawn delayed - electricity panel is open");
-            return;
-          }
-
-          // Check if any cameras are broken
-          const brokenCameras = [];
-          for (let i = 0; i < 11; i++) {
-            if (camPower[i] !== 'ON') {
-              brokenCameras.push(i);
-            }
-          }
-
-          if (brokenCameras.length > 0) {
-            console.log("Ghost spawn delayed - waiting for cameras to be fixed");
-            return;
-          }
-
-          spawnGhost();
-        }, 25000); // Check every 25 seconds (changed from 15)
-      }, 45000); // 45 seconds delay (30s Big Stein + 15s)
-    }
-
-    function spawnGhost() {
-      if (ghostActive) return;
-
-      // Pick random camera
-      ghostCamera = Math.floor(Math.random() * 11);
-
-      // Random position on camera
-      const groundZone = getGroundZone(ghostCamera);
-      ghostX = 20 + Math.random() * 60;
-      ghostY = groundZone.minY + Math.random() * (groundZone.maxY - groundZone.minY);
-
-      ghostActive = true;
-      ghostSpawnTime = Date.now();
-
-      console.log(`Ghost spawned on CAM ${ghostCamera + 1}!`);
-
-      // Show timer
-      const ghostTimer = document.getElementById('ghost-timer');
-      ghostTimer.style.display = 'block';
-
-      // Start countdown
-      ghostCountdownInterval = setInterval(() => {
-        const elapsed = Date.now() - ghostSpawnTime;
-        const remaining = Math.max(0, 15000 - elapsed);
-        const seconds = Math.floor(remaining / 1000);
-        const milliseconds = remaining % 1000;
-        ghostTimer.textContent = `${seconds}.${milliseconds.toString().padStart(3, '0')}`;
-
-        if (remaining <= 0) {
-          clearInterval(ghostCountdownInterval);
-          ghostCountdownInterval = null;
-          ghostFailure();
-        }
-      }, 10);
-
-      // Auto-fail after 15 seconds
-      ghostTimeout = setTimeout(() => {
-        if (ghostActive) {
-          ghostFailure();
-        }
-      }, 15000);
-    }
-
-    function clickGhost() {
-      if (!ghostActive) return;
-      if (activeCam !== ghostCamera) return;
-
-      console.log("Ghost clicked!");
-
-      // Clear timeout and countdown interval
-      if (ghostTimeout) {
-        clearTimeout(ghostTimeout);
-        ghostTimeout = null;
-      }
-      if (ghostCountdownInterval) {
-        clearInterval(ghostCountdownInterval);
-        ghostCountdownInterval = null;
-      }
-
-      // Hide timer
-      const ghostTimer = document.getElementById('ghost-timer');
-      ghostTimer.style.display = 'none';
-
-      // Play static effect
-      const fullscreenStatic = document.getElementById('fullscreen-static');
-      fullscreenStatic.classList.add('visible');
-      playCctvLagSfx();
-
-      setTimeout(() => {
-        fullscreenStatic.classList.remove('visible');
-        if (cctvlagAudio) {
-          cctvlagAudio.pause();
-          cctvlagAudio.currentTime = 0;
-        }
-
-        // Reset ghost
-        ghostActive = false;
-        ghostCamera = -1;
-      }, 2000);
-    }
-
-    function ghostFailure() {
-      // Don't run if ghost is already inactive
-      if (!ghostActive) {
-        console.log("Ghost failure cancelled - ghost already inactive");
-        return;
-      }
-
-      console.log("Ghost not clicked in time - jumpscare!");
-
-      // Hide timer
-      const ghostTimer = document.getElementById('ghost-timer');
-      ghostTimer.style.display = 'none';
-
-      // Clear intervals and timeouts
-      if (ghostInterval) {
-        clearInterval(ghostInterval);
-        ghostInterval = null;
-      }
-      if (ghostCountdownInterval) {
-        clearInterval(ghostCountdownInterval);
-        ghostCountdownInterval = null;
-      }
-      if (ghostTimeout) {
-        clearTimeout(ghostTimeout);
-        ghostTimeout = null;
-      }
-
-      ghostActive = false;
-      ghostCamera = -1;
-
-      // Play static first
-      const fullscreenStatic = document.getElementById('fullscreen-static');
-      fullscreenStatic.classList.add('visible');
-      playCctvLagSfx();
-
-      setTimeout(() => {
-        fullscreenStatic.classList.remove('visible');
-        if (cctvlagAudio) {
-          cctvlagAudio.pause();
-          cctvlagAudio.currentTime = 0;
-        }
-
-        // Jumpscare
-        if (jumpscareAudio) {
-          jumpscareAudio.volume = 1.0;
-          jumpscareAudio.currentTime = 2;
-          jumpscareAudio.play().catch(() => { });
-        }
-
-        const jumpscareImg = document.getElementById('jumpscare-final');
-        jumpscareImg.style.display = 'block';
-        jumpscareImg.getBoundingClientRect();
-        jumpscareImg.style.transform = 'translate(-50%, -50%) scale(1.0)';
-
-        setTimeout(() => {
-          jumpscareImg.style.display = 'none';
-          jumpscareImg.style.transform = 'translate(-50%, -50%) scale(0.1)';
-          if (jumpscareAudio) {
-            jumpscareAudio.pause();
-            jumpscareAudio.currentTime = 0;
-          }
-          showGameOver('The ghost got you. You failed to click it in time.');
-        }, 3000);
-      }, 2000);
-    }
-
-    function drawGhost() {
-      if (!ghostActive) return;
-      if (ghostCamera !== activeCam) return;
-      if (!ghostImg || !ghostImg.complete || ghostImg.naturalWidth === 0) return;
-
-      const canvasW = camCanvas.width;
-      const canvasH = camCanvas.height;
-
-      const img = imgs[activeCam];
-      if (!img || !img.complete) return;
-
-      const ghostSize = canvasH * 0.45; // Increased from 0.3 to 0.45 (50% bigger)
-
-      const baseScale = canvasH / img.naturalHeight;
-      let finalScale = baseScale;
-      if (CAMS[activeCam].zoom) {
-        const camZoomScale = baseScale * CAMS[activeCam].zoom.scale;
-        finalScale = baseScale + (camZoomScale - baseScale) * currentZoomLevel;
-      }
-
-      const displayW = img.naturalWidth * finalScale;
-      const displayH = img.naturalHeight * finalScale;
-
-      const maxScrollX = Math.max(0, displayW - canvasW);
-      const maxScrollY = Math.max(0, displayH - canvasH);
-
-      const offsetX = -(panX / 100) * maxScrollX;
-      const offsetY = -(panY / 100) * maxScrollY;
-
-      const ghostDisplayX = (ghostX / 100) * displayW + offsetX;
-      const ghostDisplayY = (ghostY / 100) * displayH + offsetY;
-
-      if (ghostDisplayX < -ghostSize || ghostDisplayX > canvasW + ghostSize) return;
-
-      ctx.drawImage(
-        ghostImg,
-        ghostDisplayX - ghostSize / 2,
-        ghostDisplayY - ghostSize,
-        ghostSize,
-        ghostSize
       );
     }
 
@@ -2882,7 +2373,6 @@ I'll analyze the camera images for ground zones and implement the new system. He
         if (flashUses > 0 && !flashCooldown) flashBtn.classList.add('visible');
       } else {
         zoomBtn.classList.remove('visible');
-        zoomBtn.style.pointerEvents = 'none';
         honkBtn.classList.remove('visible');
         decoyBtn.classList.remove('visible');
         flashBtn.classList.remove('visible');
@@ -2979,7 +2469,7 @@ I'll analyze the camera images for ground zones and implement the new system. He
             if (allFixed && alarmAudio && !alarmAudio.paused) {
               alarmAudio.pause();
               alarmAudio.currentTime = 0;
-              // Don't reset outageActive here - let the 30-second cooldown handle it
+              outageActive = false; // Allow next outage once fully restored
             }
           }
           renderElecPanel();
@@ -3005,13 +2495,6 @@ I'll analyze the camera images for ground zones and implement the new system. He
       if (elecOverlay.classList.contains('visible')) {
         renderElecPanel();
       }
-
-      // Set 30-second cooldown before next outage can trigger
-      if (outageTimeout) clearTimeout(outageTimeout);
-      outageTimeout = setTimeout(() => {
-        outageActive = false;
-        console.log("Outage cooldown ended - next outage can trigger");
-      }, OUTAGE_COOLDOWN);
     }
 
     function updateRageUI() {
@@ -3021,9 +2504,11 @@ I'll analyze the camera images for ground zones and implement the new system. He
         rageFill.style.width = '0%';
         return;
       }
-      // Rage bar shows how many seconds have been taken off (max 5 seconds)
-      const maxRage = 5; // Maximum 5 seconds can be taken off
-      const percent = Math.min(100, (bigStein.rageAccumulation / maxRage) * 100);
+      const maxRageSpeed = 17000; // Base speed when calm
+      const minRageSpeed = 3500;  // Max rage speed
+      const range = maxRageSpeed - minRageSpeed;
+      const currentSpeed = Math.max(minRageSpeed, bigStein.rageSpeed || 17000);
+      const percent = Math.min(100, ((maxRageSpeed - currentSpeed) / range) * 100);
       rageFill.style.width = `${percent}%`;
     }
 
@@ -3043,8 +2528,7 @@ I'll analyze the camera images for ground zones and implement the new system. He
 
       console.log("Decoy deployed! Big Stein resets!");
       const newCam = SPAWN_CAMERAS[Math.floor(Math.random() * SPAWN_CAMERAS.length)];
-      bigStein.rageAccumulation = 0; // Reset rage accumulation
-      console.log("Rage accumulation reset to 0!");
+      bigStein.rageSpeed = 17000;
       updateRageUI();
 
       triggerAssistedStatic(newCam);
@@ -3080,9 +2564,7 @@ I'll analyze the camera images for ground zones and implement the new system. He
             if (Math.random() > 0.50) {
               console.log("Honk succeeded! Luring Big Stein AWAY.");
               const newCam = getLureTarget(bigStein.camera, true);
-              // Honk removes 0.5 seconds from movement (max 5 seconds total)
-              bigStein.rageAccumulation = Math.min(5, bigStein.rageAccumulation + 0.5);
-              console.log(`Honk succeeded! Rage accumulation: ${bigStein.rageAccumulation}s`);
+              bigStein.rageSpeed = Math.max(3500, (bigStein.rageSpeed || 17000) - 500);
               updateRageUI();
               triggerAssistedStatic(newCam);
             } else {
@@ -3133,8 +2615,7 @@ I'll analyze the camera images for ground zones and implement the new system. He
       }
 
       // Fill rage as penalty for using flash
-      bigStein.rageAccumulation = Math.min(5, bigStein.rageAccumulation + 1.5);
-      console.log(`Flash used! Rage accumulation: ${bigStein.rageAccumulation}s`);
+      bigStein.rageSpeed = Math.max(3500, (bigStein.rageSpeed || 17000) - 600);
       updateRageUI();
 
       // Stun Big Stein for 10 seconds
@@ -3170,11 +2651,6 @@ I'll analyze the camera images for ground zones and implement the new system. He
     let hideReady = false;
     let hideTimer = null;
     let isHiding = false;
-    let spacebarClicks = 0;
-    let spamTimerStart = 0;
-    let spamTimerInterval = null;
-    const REQUIRED_CLICKS = 40;
-    const SPAM_TIME_LIMIT = 5000; // 5 seconds in milliseconds
 
     // Instant jumpscare when player fails to hide within 5 seconds
     function triggerInstantJumpscare() {
@@ -3194,39 +2670,26 @@ I'll analyze the camera images for ground zones and implement the new system. He
       // Ensure hide scene background is turned off during instant jumpscare
       document.getElementById('hide-scene').classList.remove('visible');
 
-      // Show fullscreen static first
-      const fullscreenStatic = document.getElementById('fullscreen-static');
-      fullscreenStatic.classList.add('visible');
+      // Play jumpscare audio
+      if (jumpscareAudio) {
+        jumpscareAudio.volume = 1.0;
+        jumpscareAudio.currentTime = 2;
+        jumpscareAudio.play().catch(() => { });
+      }
 
-      // Play static sound
-      playCctvLagSfx();
+      // Show jumpscare image instantly
+      const jumpscareImg = document.getElementById('jumpscare-final');
+      jumpscareImg.style.display = 'block';
+      jumpscareImg.getBoundingClientRect();
+      jumpscareImg.style.transform = 'translate(-50%, -50%) scale(1.0)';
 
-      // After 1 second of static, show jumpscare
+      // After 3 seconds → game over
       setTimeout(() => {
-        fullscreenStatic.classList.remove('visible');
-        if (cctvlagAudio) { cctvlagAudio.pause(); cctvlagAudio.currentTime = 0; }
-
-        // Play jumpscare audio
-        if (jumpscareAudio) {
-          jumpscareAudio.volume = 1.0;
-          jumpscareAudio.currentTime = 2;
-          jumpscareAudio.play().catch(() => { });
-        }
-
-        // Show jumpscare image instantly
-        const jumpscareImg = document.getElementById('jumpscare-final');
-        jumpscareImg.style.display = 'block';
-        jumpscareImg.getBoundingClientRect();
-        jumpscareImg.style.transform = 'translate(-50%, -50%) scale(1.0)';
-
-        // After 3 seconds → game over
-        setTimeout(() => {
-          jumpscareImg.style.display = 'none';
-          jumpscareImg.style.transform = 'translate(-50%, -50%) scale(0.1)';
-          if (jumpscareAudio) { jumpscareAudio.pause(); jumpscareAudio.currentTime = 0; }
-          showGameOver('Big Stein found you. You didn\'t hide in time.');
-        }, 3000);
-      }, 1000);
+        jumpscareImg.style.display = 'none';
+        jumpscareImg.style.transform = 'translate(-50%, -50%) scale(0.1)';
+        if (jumpscareAudio) { jumpscareAudio.pause(); jumpscareAudio.currentTime = 0; }
+        showGameOver('Big Stein found you. You didn\'t hide in time.');
+      }, 3000);
     }
 
     // Toggle normal hiding under the desk
@@ -3248,110 +2711,6 @@ I'll analyze the camera images for ground zones and implement the new system. He
         [panel, document.getElementById('controls-hint'), toggleBtn, elecTrigger].forEach(el => {
           if (el) el.style.display = 'block';
         });
-      }
-    }
-
-    // NEW: Start the spam spacebar challenge
-    function startSpamChallenge() {
-      hideReady = false;
-      if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
-
-      gameState = 'screamer';
-      spacebarClicks = 0;
-      spamTimerStart = Date.now();
-
-      // Stop game audio
-      if (backgroundAudio) { backgroundAudio.pause(); backgroundAudio.currentTime = 0; }
-      if (alarmAudio) { alarmAudio.pause(); alarmAudio.currentTime = 0; }
-
-      // Hide all game UI
-      [camWrap, panel, document.getElementById('hud'), screenshotsHud,
-        document.getElementById('controls-hint'), toggleBtn, elecTrigger, elecOverlay].forEach(el => {
-          if (el) el.style.display = 'none';
-        });
-
-      // Show fullscreen static first
-      const fullscreenStatic = document.getElementById('fullscreen-static');
-      fullscreenStatic.classList.add('visible');
-
-      // Play static sound
-      playCctvLagSfx();
-
-      // After 1 second of static, show the spam challenge
-      setTimeout(() => {
-        fullscreenStatic.classList.remove('visible');
-        if (cctvlagAudio) { cctvlagAudio.pause(); cctvlagAudio.currentTime = 0; }
-
-        // Show screamer scene with office and officestein
-        const screamerScene = document.getElementById('screamer-scene');
-        const officesteinImg = document.getElementById('officestein-img');
-        const spamText = document.getElementById('spam-text');
-        const spamTimer = document.getElementById('spam-timer');
-
-        screamerScene.classList.add('visible');
-        officesteinImg.style.display = 'block';
-        spamText.style.display = 'block';
-        spamTimer.style.display = 'block';
-
-        // Start the timer countdown
-        spamTimerStart = Date.now();
-        spamTimerInterval = setInterval(() => {
-          const elapsed = Date.now() - spamTimerStart;
-          const remaining = Math.max(0, SPAM_TIME_LIMIT - elapsed);
-          const seconds = Math.floor(remaining / 1000);
-          const milliseconds = remaining % 1000;
-          spamTimer.textContent = `${seconds}.${milliseconds.toString().padStart(3, '0')}`;
-
-          // Check if time ran out
-          if (remaining <= 0) {
-            clearInterval(spamTimerInterval);
-            spamTimerInterval = null;
-
-            // Player failed - trigger jumpscare
-            screamerScene.classList.remove('visible');
-            officesteinImg.style.display = 'none';
-            spamText.style.display = 'none';
-            spamTimer.style.display = 'none';
-
-            triggerInstantJumpscare();
-          }
-        }, 10); // Update every 10ms for smooth millisecond display
-      }, 1000);
-    }
-
-    // Handle spacebar clicks during spam challenge
-    function handleSpacebarClick() {
-      if (gameState !== 'screamer' || !spamTimerInterval) return;
-
-      spacebarClicks++;
-      console.log(`Spacebar clicks: ${spacebarClicks}/${REQUIRED_CLICKS}`);
-
-      // Check if player reached required clicks
-      if (spacebarClicks >= REQUIRED_CLICKS) {
-        clearInterval(spamTimerInterval);
-        spamTimerInterval = null;
-
-        // Player succeeded! Hide the spam UI and start walker scene
-        const screamerScene = document.getElementById('screamer-scene');
-        const officesteinImg = document.getElementById('officestein-img');
-        const spamText = document.getElementById('spam-text');
-        const spamTimer = document.getElementById('spam-timer');
-        const fadeOverlay = document.getElementById('fade-overlay');
-
-        screamerScene.classList.remove('visible');
-        officesteinImg.style.display = 'none';
-        spamText.style.display = 'none';
-        spamTimer.style.display = 'none';
-
-        // Fade to black transition
-        fadeOverlay.classList.add('fade-in');
-
-        setTimeout(() => {
-          // Fade back to normal
-          fadeOverlay.classList.remove('fade-in');
-          console.log('Player successfully hid! Starting walker scene...');
-          triggerHideWalkerScene();
-        }, 500);
       }
     }
 
@@ -3400,18 +2759,35 @@ I'll analyze the camera images for ground zones and implement the new system. He
       const walker = document.getElementById('walker');
       const jumpscareImg = document.getElementById('jumpscare-final');
 
+      // Play jumpscare audio
+      if (jumpscareAudio) {
+        jumpscareAudio.volume = 1.0;
+        jumpscareAudio.currentTime = 2;
+        jumpscareAudio.play().catch(() => { });
+      }
+
       // Hide the walker
       if (walker) walker.style.display = 'none';
       if (walkingSfxAudio) { walkingSfxAudio.pause(); walkingSfxAudio.currentTime = 0; }
 
-      // DO NOT show jumpscare image - just end the scene
-      // Stop all audio
-      if (heartbeatAudio) { heartbeatAudio.pause(); heartbeatAudio.currentTime = 0; }
-      if (jumpscareAudio) { jumpscareAudio.pause(); jumpscareAudio.currentTime = 0; }
-      if (walkingSfxAudio) { walkingSfxAudio.pause(); walkingSfxAudio.currentTime = 0; }
+      // Show jumpscare — scale(1.0) to see full face without over-zooming
+      jumpscareImg.style.display = 'block';
+      jumpscareImg.getBoundingClientRect();
+      jumpscareImg.style.transform = 'translate(-50%, -50%) scale(1.0)';
 
-      document.getElementById('hide-scene').classList.remove('visible');
-      showGameOver('Big Stein found you. You should have used your tools more wisely.');
+      // After 3 seconds → YOU DIED
+      setTimeout(() => {
+        jumpscareImg.style.display = 'none';
+        jumpscareImg.style.transform = 'translate(-50%, -50%) scale(0.1)';
+
+        // Stop all audio
+        if (heartbeatAudio) { heartbeatAudio.pause(); heartbeatAudio.currentTime = 0; }
+        if (jumpscareAudio) { jumpscareAudio.pause(); jumpscareAudio.currentTime = 0; }
+        if (walkingSfxAudio) { walkingSfxAudio.pause(); walkingSfxAudio.currentTime = 0; }
+
+        document.getElementById('hide-scene').classList.remove('visible');
+        showGameOver('Big Stein found you. You should have used your tools more wisely.');
+      }, 3000);
     }
 
     function startWalkerAnimation() {
@@ -3470,98 +2846,14 @@ I'll analyze the camera images for ground zones and implement the new system. He
           walker.style.transition = `right ${walkDuration}ms linear`;
           walker.style.right = (screenW - 600) + 'px';
 
-          // After walker finishes walking left, trigger the win sequence
+          // Jumpscare can happen at any random moment starting from 1 second into the left walk
+          const jumpscareDelay = 1000 + Math.random() * (walkDuration - 1500);
           setTimeout(() => {
-            triggerWinSequence();
-          }, walkDuration);
+            triggerFinalJumpscare();
+          }, jumpscareDelay);
 
         }, 1500);
       }, walkDuration);
-    }
-
-    function triggerWinSequence() {
-      const walker = document.getElementById('walker');
-      const hideScene = document.getElementById('hide-scene');
-      const gameDiv = document.getElementById('game');
-
-      // Hide walker and hide scene
-      if (walker) walker.style.display = 'none';
-      hideScene.classList.remove('visible');
-      gameDiv.style.display = 'none';
-      if (walkingSfxAudio) { walkingSfxAudio.pause(); walkingSfxAudio.currentTime = 0; }
-      if (heartbeatAudio) { heartbeatAudio.pause(); heartbeatAudio.currentTime = 0; }
-
-      // Phase 1: Static noise for 2.5 seconds
-      const fullscreenStatic = document.getElementById('fullscreen-static');
-      fullscreenStatic.classList.add('visible');
-      playCctvLagSfx();
-
-      setTimeout(() => {
-        fullscreenStatic.classList.remove('visible');
-        if (cctvlagAudio) { cctvlagAudio.pause(); cctvlagAudio.currentTime = 0; }
-
-        // Phase 2: Black screen for 5 seconds with heartbeat
-        document.body.style.background = '#000';
-
-        if (heartbeatAudio) {
-          heartbeatAudio.volume = 0.8;
-          heartbeatAudio.currentTime = 0;
-          heartbeatAudio.play().catch(() => { });
-        }
-
-        setTimeout(() => {
-          // Phase 3: Show "YOU WON" text with static background for 2.5 seconds
-          if (heartbeatAudio) { heartbeatAudio.pause(); heartbeatAudio.currentTime = 0; }
-
-          // Show static background
-          fullscreenStatic.classList.add('visible');
-
-          const wonText = document.createElement('div');
-          wonText.style.position = 'fixed';
-          wonText.style.top = '50%';
-          wonText.style.left = '50%';
-          wonText.style.transform = 'translate(-50%, -50%)';
-          wonText.style.color = '#00ff50';
-          wonText.style.fontSize = '72px';
-          wonText.style.fontFamily = "'Courier New', monospace";
-          wonText.style.textShadow = '0 0 30px #00ff50';
-          wonText.style.zIndex = '301';
-          wonText.style.fontWeight = 'bold';
-          wonText.textContent = 'YOU WON!';
-          document.body.appendChild(wonText);
-
-          // After 2.5 seconds, show jumpscare
-          setTimeout(() => {
-            fullscreenStatic.classList.remove('visible');
-            document.body.removeChild(wonText);
-
-            // Play jumpscare audio
-            if (jumpscareAudio) {
-              jumpscareAudio.volume = 1.0;
-              jumpscareAudio.currentTime = 2;
-              jumpscareAudio.play().catch(() => { });
-            }
-
-            // Show jumpscare image
-            const jumpscareImg = document.getElementById('jumpscare-final');
-            jumpscareImg.style.display = 'block';
-            jumpscareImg.getBoundingClientRect();
-            jumpscareImg.style.transform = 'translate(-50%, -50%) scale(1.0)';
-
-            // After 3 seconds → YOU SURVIVED
-            setTimeout(() => {
-              jumpscareImg.style.display = 'none';
-              jumpscareImg.style.transform = 'translate(-50%, -50%) scale(0.1)';
-              if (jumpscareAudio) { jumpscareAudio.pause(); jumpscareAudio.currentTime = 0; }
-              document.body.style.background = '';
-
-              // Show survived screen
-              survDiv.style.display = 'flex';
-              finalScreenshots.textContent = screenshots;
-            }, 3000);
-          }, 2500);
-        }, 5000);
-      }, 2500);
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -3576,11 +2868,9 @@ I'll analyze the camera images for ground zones and implement the new system. He
           screenshots++;
           screenshotsHud.textContent = `SCREENSHOTS: ${screenshots}/${REQUIRED_SCREENSHOTS}`;
         }
-        // Screenshot removes 1 second from movement (max 5 seconds total)
-        bigStein.rageAccumulation = Math.min(5, bigStein.rageAccumulation + 1);
-        console.log(`Screenshot taken! Rage accumulation: ${bigStein.rageAccumulation}s`);
+        bigStein.rageSpeed = Math.max(3500, (bigStein.rageSpeed || 17000) - 400); // Add rage penalty
         updateRageUI();
-        triggerStaticAndMoveCloser(true); // Pass true to indicate screenshot
+        triggerStaticAndMoveCloser();
         return;
       }
 
@@ -3597,10 +2887,7 @@ I'll analyze the camera images for ground zones and implement the new system. He
 
       // If Big Stein is on this camera and passive, trigger aggressive
       if (bigStein.state === BIGSTEIN_STATE.PASSIVE && bigStein.camera === activeCam) {
-        // Seeing Big Stein go aggressive adds 0.5 seconds to rage
-        bigStein.rageAccumulation = Math.min(5, bigStein.rageAccumulation + 0.5);
-        console.log(`Big Stein turned aggressive! Rage accumulation: ${bigStein.rageAccumulation}s`);
-        updateRageUI();
+        bigStein.rageSpeed = Math.max(3500, (bigStein.rageSpeed || 17000) - 400);
         triggerAggressive();
       }
     }
@@ -3672,7 +2959,6 @@ I'll analyze the camera images for ground zones and implement the new system. He
 
           ctx.drawImage(img, 0, 0, imgW, imgH, offsetX, offsetY, displayW, displayH);
           drawBigStein();
-          drawGhost();
         } else {
           ctx.fillStyle = '#ffdd00';
           ctx.font = '24px Courier New';
@@ -3720,37 +3006,12 @@ I'll analyze the camera images for ground zones and implement the new system. He
       if (elapsed >= NIGHT_SEC && !survived && !gameOver) {
         if (screenshots >= REQUIRED_SCREENSHOTS) {
           survived = true;
-          
-          // Stop all audio
           if (alarmAudio) alarmAudio.pause();
           if (backgroundAudio) {
             backgroundAudio.pause();
             backgroundAudio.currentTime = 0;
           }
-          
-          // Clear ghost mechanics
-          if (ghostInterval) {
-            clearInterval(ghostInterval);
-            ghostInterval = null;
-          }
-          if (ghostTimeout) {
-            clearTimeout(ghostTimeout);
-            ghostTimeout = null;
-          }
-          if (ghostCountdownInterval) {
-            clearInterval(ghostCountdownInterval);
-            ghostCountdownInterval = null;
-          }
-          ghostActive = false;
-          document.getElementById('ghost-timer').style.display = 'none';
-          
-          // Hide game UI
-          gameDiv.style.display = 'none';
-          
-          // Play church bell
-          playChurchBell();
-          
-          // Show win screen
+          finalScreenshots.textContent = screenshots;
           survDiv.style.display = 'flex';
         } else {
           showGameOver(`You only captured ${screenshots}/${REQUIRED_SCREENSHOTS} screenshots. The researchers needed more evidence.`);
@@ -3814,62 +3075,7 @@ I'll analyze the camera images for ground zones and implement the new system. He
     toggleBtn.addEventListener('mousedown', togglePanel);
     retryBtn.addEventListener('mousedown', retryGame);
 
-    // Canvas click for ghost
-    camCanvas.addEventListener('click', (e) => {
-      if (!ghostActive || !camOpen) return;
-      if (activeCam !== ghostCamera) return;
-
-      const rect = camCanvas.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      const clickY = e.clientY - rect.top;
-
-      const canvasW = camCanvas.width;
-      const canvasH = camCanvas.height;
-
-      const img = imgs[activeCam];
-      if (!img || !img.complete) return;
-
-      const ghostSize = canvasH * 0.45; // Match the size in drawGhost (increased from 0.3)
-
-      const baseScale = canvasH / img.naturalHeight;
-      let finalScale = baseScale;
-      if (CAMS[activeCam].zoom) {
-        const camZoomScale = baseScale * CAMS[activeCam].zoom.scale;
-        finalScale = baseScale + (camZoomScale - baseScale) * currentZoomLevel;
-      }
-
-      const displayW = img.naturalWidth * finalScale;
-      const displayH = img.naturalHeight * finalScale;
-
-      const maxScrollX = Math.max(0, displayW - canvasW);
-      const maxScrollY = Math.max(0, displayH - canvasH);
-
-      const offsetX = -(panX / 100) * maxScrollX;
-      const offsetY = -(panY / 100) * maxScrollY;
-
-      const ghostDisplayX = (ghostX / 100) * displayW + offsetX;
-      const ghostDisplayY = (ghostY / 100) * displayH + offsetY;
-
-      // Check if click is within ghost bounds
-      const dx = clickX - ghostDisplayX;
-      const dy = clickY - (ghostDisplayY - ghostSize / 2);
-      const distance = Math.sqrt(dx * dx + dy * dy);
-
-      if (distance < ghostSize / 2) {
-        clickGhost();
-      }
-    });
-
     window.addEventListener('keydown', e => {
-      // Spacebar: spam challenge during screamer scene
-      if (e.key === ' ' || e.code === 'Space') {
-        if (gameState === 'screamer' && spamTimerInterval) {
-          e.preventDefault();
-          handleSpacebarClick();
-          return;
-        }
-      }
-
       // E key: hide mechanics
       if ((e.key === 'e' || e.key === 'E') && !camOpen) {
         if (gameState === 'screamer') return; // Cannot toggle during death sequence
