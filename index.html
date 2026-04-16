@@ -19,6 +19,37 @@ I'll analyze the camera images for ground zones and implement the new system. He
       user-select: none;
       cursor: default;
       font-family: 'Courier New', monospace;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Game container that scales everything */
+    #game {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      transform-origin: center center;
+      display: none;
+    }
+
+    #game.visible {
+      display: block;
+    }
+
+    /* Auto-scale based on viewport */
+    @media (max-aspect-ratio: 16/9) {
+      #game {
+        transform: scale(calc(100vw / 1920));
+      }
+    }
+
+    @media (min-aspect-ratio: 16/9) {
+      #game {
+        transform: scale(calc(100vh / 1080));
+      }
     }
 
     /* ═══════════════════════════════════════════════════════════════════════════
@@ -317,16 +348,6 @@ I'll analyze the camera images for ground zones and implement the new system. He
     /* ═══════════════════════════════════════════════════════════════════════════
    GAME
 ═══════════════════════════════════════════════════════════════════════════ */
-    #game {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      display: none;
-    }
-
-    #game.visible {
-      display: block;
-    }
 
     /* Room background */
     #room-bg {
@@ -343,13 +364,11 @@ I'll analyze the camera images for ground zones and implement the new system. He
     #cam-wrap {
       position: absolute;
       z-index: 2;
-      top: 50%;
+      top: 20px;
       left: 50%;
-      transform: translate(-50%, -50%);
-      width: 70vw;
-      height: 50vh;
-      max-width: 900px;
-      max-height: 500px;
+      transform: translateX(-50%);
+      width: 1200px;
+      height: 600px;
       display: none;
     }
 
