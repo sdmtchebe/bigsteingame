@@ -347,9 +347,9 @@ I'll analyze the camera images for ground zones and implement the new system. He
       left: 50%;
       transform: translateX(-50%);
       width: 70vw;
-      height: 50vh;
+      height: calc(100vh - 280px);
       max-width: 900px;
-      max-height: calc(100vh - 350px);
+      max-height: 500px;
       display: none;
     }
 
@@ -767,18 +767,18 @@ I'll analyze the camera images for ground zones and implement the new system. He
 
     /* Toggle button */
     #toggle-btn {
-      position: absolute;
-      bottom: 20px;
+      position: fixed;
+      bottom: 15px;
       left: 50%;
       transform: translateX(-50%);
       background: none;
       border: 2px solid #00ff50;
       color: #00ff50;
-      padding: 12px 24px;
+      padding: 10px 20px;
       cursor: pointer;
       font-family: inherit;
-      font-size: 16px;
-      z-index: 3;
+      font-size: 15px;
+      z-index: 5;
       font-weight: bold;
       transition: all 0.2s;
     }
@@ -790,20 +790,21 @@ I'll analyze the camera images for ground zones and implement the new system. He
 
     /* Panel with SVG map */
     #panel {
-      position: absolute;
+      position: fixed;
       bottom: 70px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.9);
       border: 2px solid #00ff50;
-      padding: 10px;
+      padding: 8px;
       color: #00ff50;
       font-family: 'Courier New', monospace;
-      font-size: 14px;
-      z-index: 3;
+      font-size: 13px;
+      z-index: 4;
       display: none;
-      max-width: 95vw;
+      max-width: 90vw;
       overflow-x: auto;
+      box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.8);
     }
 
     #panel.visible {
@@ -811,17 +812,17 @@ I'll analyze the camera images for ground zones and implement the new system. He
     }
 
     #panel-title {
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       text-align: center;
-      font-size: 14px;
+      font-size: 13px;
     }
 
     #map-svg {
       width: 100%;
-      max-width: 650px;
+      max-width: 600px;
       height: auto;
-      min-height: 180px;
-      max-height: 220px;
+      min-height: 160px;
+      max-height: 200px;
     }
 
     /* Camera nodes in SVG */
@@ -1344,8 +1345,8 @@ I'll analyze the camera images for ground zones and implement the new system. He
     @media (max-width: 1400px) {
       #cam-wrap {
         width: 75vw;
-        height: 48vh;
-        max-height: calc(100vh - 360px);
+        height: calc(100vh - 300px);
+        max-height: 480px;
       }
 
       #panel {
@@ -1356,8 +1357,8 @@ I'll analyze the camera images for ground zones and implement the new system. He
     @media (max-width: 1024px) {
       #cam-wrap {
         width: 80vw;
-        height: 45vh;
-        max-height: calc(100vh - 380px);
+        height: calc(100vh - 320px);
+        max-height: 450px;
       }
 
       #panel {
@@ -1380,8 +1381,8 @@ I'll analyze the camera images for ground zones and implement the new system. He
     @media (max-width: 768px) {
       #cam-wrap {
         width: 90vw;
-        height: 40vh;
-        max-height: calc(100vh - 400px);
+        height: calc(100vh - 340px);
+        max-height: 400px;
         top: 1vh;
       }
 
@@ -1444,8 +1445,8 @@ I'll analyze the camera images for ground zones and implement the new system. He
     @media (max-width: 480px) {
       #cam-wrap {
         width: 95vw;
-        height: 35vh;
-        max-height: calc(100vh - 420px);
+        height: calc(100vh - 360px);
+        max-height: 350px;
       }
 
       #panel {
