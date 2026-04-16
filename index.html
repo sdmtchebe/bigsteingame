@@ -531,16 +531,16 @@ I'll analyze the camera images for ground zones and implement the new system. He
 
     #flash-btn {
       position: absolute;
-      bottom: 54px;
+      bottom: 5vh;
       left: 50%;
       transform: translateX(-50%);
       background: rgba(255, 220, 0, 0.15);
       border: 2px solid #ffdd00;
       color: #ffdd00;
-      padding: 7px 16px;
+      padding: clamp(5px, 0.6vh, 10px) clamp(12px, 1.2vw, 20px);
       cursor: pointer;
       font-family: inherit;
-      font-size: 13px;
+      font-size: clamp(11px, 1vw, 14px);
       opacity: 0;
       transition: opacity 0.2s;
       font-weight: bold;
@@ -578,15 +578,15 @@ I'll analyze the camera images for ground zones and implement the new system. He
 
     #zoom-btn {
       position: absolute;
-      bottom: 10px;
-      right: 10px;
+      bottom: 1vh;
+      right: 1vw;
       background: none;
       border: 2px solid #00ff50;
       color: #00ff50;
-      padding: 8px 12px;
+      padding: clamp(6px, 0.7vh, 10px) clamp(10px, 1vw, 16px);
       cursor: pointer;
       font-family: inherit;
-      font-size: 14px;
+      font-size: clamp(11px, 1vw, 15px);
       opacity: 0;
       transition: opacity 0.2s;
       font-weight: bold;
@@ -595,15 +595,15 @@ I'll analyze the camera images for ground zones and implement the new system. He
     /* Decoy Button */
     #decoy-btn {
       position: absolute;
-      bottom: 10px;
-      right: 200px;
+      bottom: 1vh;
+      right: 18vw;
       background: none;
       border: 2px solid #ff3333;
       color: #ff3333;
-      padding: 8px 16px;
+      padding: clamp(6px, 0.7vh, 10px) clamp(12px, 1.2vw, 18px);
       cursor: pointer;
       font-family: inherit;
-      font-size: 14px;
+      font-size: clamp(11px, 1vw, 15px);
       font-weight: bold;
       transition: all 0.2s;
       opacity: 0;
@@ -632,15 +632,15 @@ I'll analyze the camera images for ground zones and implement the new system. He
     /* Honk Button */
     #honk-btn {
       position: absolute;
-      bottom: 10px;
-      right: 100px;
+      bottom: 1vh;
+      right: 9vw;
       background: none;
       border: 2px solid #ffaa00;
       color: #ffaa00;
-      padding: 8px 16px;
+      padding: clamp(6px, 0.7vh, 10px) clamp(12px, 1.2vw, 18px);
       cursor: pointer;
       font-family: inherit;
-      font-size: 14px;
+      font-size: clamp(11px, 1vw, 15px);
       font-weight: bold;
       transition: all 0.2s;
       opacity: 0;
