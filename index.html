@@ -343,11 +343,11 @@ I'll analyze the camera images for ground zones and implement the new system. He
     #cam-wrap {
       position: absolute;
       z-index: 2;
-      top: 2vh;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translate(-50%, -50%);
       width: 70vw;
-      height: calc(100vh - 280px);
+      height: 50vh;
       max-width: 900px;
       max-height: 500px;
       display: none;
@@ -768,16 +768,16 @@ I'll analyze the camera images for ground zones and implement the new system. He
     /* Toggle button */
     #toggle-btn {
       position: fixed;
-      bottom: 15px;
+      bottom: 2vh;
       left: 50%;
       transform: translateX(-50%);
       background: none;
       border: 2px solid #00ff50;
       color: #00ff50;
-      padding: 10px 20px;
+      padding: 0.8vh 2vw;
       cursor: pointer;
       font-family: inherit;
-      font-size: 15px;
+      font-size: clamp(12px, 1.2vw, 16px);
       z-index: 5;
       font-weight: bold;
       transition: all 0.2s;
@@ -791,15 +791,15 @@ I'll analyze the camera images for ground zones and implement the new system. He
     /* Panel with SVG map */
     #panel {
       position: fixed;
-      bottom: 70px;
+      bottom: 6vh;
       left: 50%;
       transform: translateX(-50%);
       background: rgba(0, 0, 0, 0.9);
       border: 2px solid #00ff50;
-      padding: 8px;
+      padding: 0.8vh 1vw;
       color: #00ff50;
       font-family: 'Courier New', monospace;
-      font-size: 13px;
+      font-size: clamp(11px, 1vw, 14px);
       z-index: 4;
       display: none;
       max-width: 90vw;
@@ -812,17 +812,17 @@ I'll analyze the camera images for ground zones and implement the new system. He
     }
 
     #panel-title {
-      margin-bottom: 8px;
+      margin-bottom: 0.5vh;
       text-align: center;
-      font-size: 13px;
+      font-size: clamp(11px, 1vw, 14px);
     }
 
     #map-svg {
       width: 100%;
       max-width: 600px;
       height: auto;
-      min-height: 160px;
-      max-height: 200px;
+      min-height: clamp(120px, 15vh, 180px);
+      max-height: clamp(160px, 20vh, 220px);
     }
 
     /* Camera nodes in SVG */
@@ -835,7 +835,7 @@ I'll analyze the camera images for ground zones and implement the new system. He
       background: #111;
       border: 3px solid #00ff50;
       color: #00ff50;
-      font-size: 11px;
+      font-size: clamp(9px, 0.9vw, 12px);
       cursor: pointer;
       transition: all 0.2s;
       position: relative;
@@ -858,7 +858,7 @@ I'll analyze the camera images for ground zones and implement the new system. He
       position: absolute;
       bottom: 1px;
       right: 3px;
-      font-size: 9px;
+      font-size: clamp(7px, 0.7vw, 10px);
       opacity: 0.7;
     }
 
@@ -872,7 +872,7 @@ I'll analyze the camera images for ground zones and implement the new system. He
       background: #1a0a0a;
       border: 3px solid #ff3333;
       color: #ff3333;
-      font-size: 11px;
+      font-size: clamp(9px, 0.9vw, 12px);
       font-weight: bold;
       text-shadow: 0 0 8px #ff3333;
       animation: you-pulse 2s infinite;
@@ -1345,144 +1345,89 @@ I'll analyze the camera images for ground zones and implement the new system. He
     @media (max-width: 1400px) {
       #cam-wrap {
         width: 75vw;
-        height: calc(100vh - 300px);
-        max-height: 480px;
-      }
-
-      #panel {
-        bottom: 65px;
+        height: 48vh;
       }
     }
 
     @media (max-width: 1024px) {
       #cam-wrap {
         width: 80vw;
-        height: calc(100vh - 320px);
-        max-height: 450px;
-      }
-
-      #panel {
-        bottom: 60px;
-        padding: 8px;
-      }
-
-      #toggle-btn {
-        bottom: 15px;
-        padding: 10px 20px;
-        font-size: 14px;
-      }
-
-      #map-svg {
-        max-height: 200px;
-        min-height: 160px;
+        height: 46vh;
       }
     }
 
     @media (max-width: 768px) {
       #cam-wrap {
-        width: 90vw;
-        height: calc(100vh - 340px);
-        max-height: 400px;
-        top: 1vh;
-      }
-
-      #panel {
-        bottom: 50px;
-        padding: 6px;
-        font-size: 12px;
-      }
-
-      #panel-title {
-        font-size: 12px;
-        margin-bottom: 8px;
-      }
-
-      #toggle-btn {
-        bottom: 10px;
-        padding: 8px 16px;
-        font-size: 13px;
-      }
-
-      .cam-node {
-        font-size: 9px;
-      }
-
-      .cam-node .shortcut {
-        font-size: 7px;
+        width: 88vw;
+        height: 44vh;
       }
 
       #hud {
-        top: 10px;
-        left: 10px;
+        top: 1vh;
+        left: 1vw;
       }
 
       #hud-night {
-        font-size: 18px;
+        font-size: clamp(16px, 2vh, 20px);
       }
 
       #hud-hour {
-        font-size: 14px;
+        font-size: clamp(13px, 1.6vh, 16px);
       }
 
       #hud-bar {
-        width: 150px;
+        width: clamp(120px, 15vw, 180px);
       }
 
       #rage-hud {
-        font-size: 12px;
+        font-size: clamp(11px, 1.4vh, 14px);
       }
 
       #rage-bar-wrapper {
-        width: 150px;
-      }
-
-      #map-svg {
-        max-height: 180px;
-        min-height: 140px;
+        width: clamp(120px, 15vw, 180px);
       }
     }
 
     @media (max-width: 480px) {
       #cam-wrap {
-        width: 95vw;
-        height: calc(100vh - 360px);
-        max-height: 350px;
-      }
-
-      #panel {
-        bottom: 45px;
-        padding: 5px;
-      }
-
-      #toggle-btn {
-        padding: 6px 12px;
-        font-size: 12px;
+        width: 92vw;
+        height: 42vh;
       }
 
       #cam-ui {
-        font-size: 11px;
+        font-size: clamp(10px, 1.1vw, 13px);
       }
+    }
 
-      .cam-node {
-        font-size: 8px;
-      }
-
-      #hud-night {
-        font-size: 16px;
-      }
-
-      #hud-hour {
-        font-size: 12px;
-      }
-
-      #hud-bar,
-      #rage-bar-wrapper {
-        width: 120px;
+    @media (max-height: 700px) {
+      #cam-wrap {
+        height: 40vh;
       }
 
       #map-svg {
-        max-height: 160px;
-        min-height: 120px;
+        min-height: clamp(100px, 12vh, 140px);
+        max-height: clamp(140px, 16vh, 180px);
+      }
+    }
+
+    @media (max-height: 600px) {
+      #cam-wrap {
+        height: 38vh;
+      }
+
+      #panel {
+        bottom: 5vh;
+        padding: 0.5vh 0.8vw;
+      }
+
+      #toggle-btn {
+        bottom: 1.5vh;
+        padding: 0.6vh 1.5vw;
+      }
+
+      #map-svg {
+        min-height: clamp(80px, 10vh, 120px);
+        max-height: clamp(120px, 14vh, 160px);
       }
     }
   </style>
