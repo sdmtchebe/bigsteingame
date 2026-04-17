@@ -1444,7 +1444,7 @@
     <div id="screenshots-hud">SCREENSHOTS: 0/4</div>
 
     <!-- Ghost Timer -->
-    <div id="ghost-timer" style="display: none;">15.000</div>
+    <div id="ghost-timer" style="display: none;">20.000</div>
 
     <div id="controls-hint">
       [1-9] Switch Cams | [10][11] Quick press | [←→↑↓] Pan | [S] Screenshot | [H] Honk
@@ -1642,22 +1642,22 @@
       [7, 8],   // CAM 8 - CAM 9
       [7, 9],   // CAM 8 - CAM 10
       [7, 10],  // CAM 8 - CAM 11
+      [4, 1],   // CAM 5 - CAM 2 (NEW CORRIDOR)
     ];
 
     // Edges to YOU (player location)
     const YOU_EDGES = [
       { from: 0 },  // CAM 1 connects to YOU
       { from: 2 },  // CAM 3 connects to YOU
-      { from: 9 },  // CAM 10 connects to YOU
     ];
 
     // Adjacency list for pathfinding
     const ADJACENCY = {
       0: [1],           // CAM 1 -> CAM 2
-      1: [0, 2],        // CAM 2 -> CAM 1, CAM 3
+      1: [0, 4],        // CAM 2 -> CAM 1, CAM 5 (NEW PATH)
       2: [1, 3],        // CAM 3 -> CAM 2, CAM 4
-      3: [2, 4, 6, 7],  // CAM 4 -> CAM 3, CAM 5, CAM 7, CAM 8
-      4: [3, 5],        // CAM 5 -> CAM 4, CAM 6
+      3: [2, 6],        // CAM 4 -> CAM 3, CAM 7 (NEW PATH)
+      4: [1, 5],        // CAM 5 -> CAM 2, CAM 6 (NEW PATH)
       5: [4, 6],        // CAM 6 -> CAM 5, CAM 7
       6: [5, 3, 8],     // CAM 7 -> CAM 6, CAM 4, CAM 9
       7: [3, 8, 9, 10], // CAM 8 -> CAM 4, CAM 9, CAM 10, CAM 11
@@ -1670,16 +1670,39 @@
     const DISTANCE_TO_YOU = {
       0: 1,   // CAM 1 is 1 step from YOU (Final stop)
       1: 2,   // CAM 2 is 2 steps
-      2: 3,   // CAM 3 is 3 steps
-      3: 4,   // CAM 4 is 4 steps
-      4: 5,   // CAM 5 is 5 steps
-      5: 6,   // CAM 6 is 6 steps
+      2: 7,   // CAM 3 is 7 steps (not on main path)
+      3: 6,   // CAM 4 is 6 steps
+      4: 3,   // CAM 5 is 3 steps
+      5: 4,   // CAM 6 is 4 steps
       6: 5,   // CAM 7 is 5 steps
-      7: 5,   // CAM 8 is 5 steps
-      8: 6,   // CAM 9 is 6 steps
-      9: 6,   // CAM 10 is 6 steps
-      10: 6   // CAM 11 is 6 steps
+      7: 7,   // CAM 8 is 7 steps (not on main path)
+      8: 8,   // CAM 9 is 8 steps
+      9: 8,   // CAM 10 is 8 steps
+      10: 8   // CAM 11 is 8 steps
     };
+
+    // Movement speed for each camera transition (in milliseconds)
+    // Path: CAM 4 -> CAM 7 -> CAM 6 -> CAM 5 -> CAM 2 -> CAM 1
+    const MOVE_SPEED_BASE = {
+      // From CAM 4 to CAM 7: 5 seconds
+      '3-6': 5000,
+      // From CAM 7 to CAM 6: 5 seconds
+      '6-5': 5000,
+      // From CAM 6 to CAM 5: 5 seconds
+      '5-4': 5000,
+      // From CAM 5 to CAM 2: 10 seconds
+      '4-1': 10000,
+      // From CAM 2 to CAM 1: 10 seconds
+      '1-0': 10000,
+      // Default for other transitions: 7 seconds
+      'default': 7000
+    };
+
+    // Helper function to get movement speed between cameras
+    function getMoveSpeed(fromCam, toCam) {
+      const key = `${fromCam}-${toCam}`;
+      return MOVE_SPEED_BASE[key] || MOVE_SPEED_BASE['default'];
+    }
 
     // ═══════════════════════════════════════════════════════════════════════════
     // GAME STATE
@@ -1996,7 +2019,7 @@
 
       const isLast = storyIndex === STORYLINE.length - 1;
       const isFirst = storyIndex === 0;
-      html
+
       if (!isFirst) {
         const backBtn = document.createElement('button');
         backBtn.className = 'story-btn';
@@ -2299,8 +2322,16 @@
         // Reset hasBeenSeen when player looks away
         bigStein.hasBeenSeen = false;
 
-        // Calculate current movement speed based on base + rage accumulation
-        const baseSpeed = bigStein.hasBeenSeen ? 7000 : 10000; // 7 seconds if spotted, 10 if not
+        // Get the next camera Big Stein will move to
+        const adjacent = ADJACENCY[bigStein.camera] || [];
+        const nextCam = adjacent.length > 0 ? adjacent.reduce((best, cam) => 
+          DISTANCE_TO_YOU[cam] < DISTANCE_TO_YOU[best] ? cam : best
+        ) : bigStein.camera;
+
+        // Get base speed for this specific transition
+        const baseSpeed = getMoveSpeed(bigStein.camera, nextCam);
+        
+        // Apply rage reduction
         const currentSpeed = baseSpeed - (bigStein.rageAccumulation * 1000); // rageAccumulation is in seconds
 
         // Slow down if ANY camera is broken
@@ -2554,15 +2585,29 @@
           }
 
           spawnGhost();
-        }, 25000); // Check every 25 seconds (changed from 15)
+        }, 60000); // Check every 60 seconds (1 minute)
       }, 45000); // 45 seconds delay (30s Big Stein + 15s)
     }
 
     function spawnGhost() {
       if (ghostActive) return;
+      
+      // Don't spawn ghost if there's an active outage
+      if (outageActive) {
+        console.log("Ghost spawn blocked - electrical outage active");
+        return;
+      }
 
-      // Pick random camera
-      ghostCamera = Math.floor(Math.random() * 11);
+      // Pick random camera from spawn cameras (8-11 only)
+      const validCameras = SPAWN_CAMERAS.filter(cam => camPower[cam] === 'ON');
+      
+      // If no valid cameras (all broken), don't spawn
+      if (validCameras.length === 0) {
+        console.log("Ghost spawn blocked - no valid cameras available");
+        return;
+      }
+      
+      ghostCamera = validCameras[Math.floor(Math.random() * validCameras.length)];
 
       // Random position on camera
       const groundZone = getGroundZone(ghostCamera);
@@ -2581,7 +2626,7 @@
       // Start countdown
       ghostCountdownInterval = setInterval(() => {
         const elapsed = Date.now() - ghostSpawnTime;
-        const remaining = Math.max(0, 15000 - elapsed);
+        const remaining = Math.max(0, 20000 - elapsed);
         const seconds = Math.floor(remaining / 1000);
         const milliseconds = remaining % 1000;
         ghostTimer.textContent = `${seconds}.${milliseconds.toString().padStart(3, '0')}`;
@@ -2593,12 +2638,12 @@
         }
       }, 10);
 
-      // Auto-fail after 15 seconds
+      // Auto-fail after 20 seconds
       ghostTimeout = setTimeout(() => {
         if (ghostActive) {
           ghostFailure();
         }
-      }, 15000);
+      }, 20000);
     }
 
     function clickGhost() {
@@ -2754,28 +2799,68 @@
     function buildMap() {
       const ns = 'http://www.w3.org/2000/svg';
 
-      // Draw corridor edges
+      // Draw corridor edges with double lines
       EDGES.forEach(([a, b]) => {
         const na = NODES[a], nb = NODES[b];
-        const line = document.createElementNS(ns, 'line');
-        line.setAttribute('x1', na.x); line.setAttribute('y1', na.y);
-        line.setAttribute('x2', nb.x); line.setAttribute('y2', nb.y);
-        line.setAttribute('stroke', '#2a4a2a');
-        line.setAttribute('stroke-width', '2');
-        line.setAttribute('stroke-dasharray', '4 3');
-        mapSvg.appendChild(line);
+        
+        // Calculate perpendicular offset for double lines
+        const dx = nb.x - na.x;
+        const dy = nb.y - na.y;
+        const len = Math.sqrt(dx * dx + dy * dy);
+        const offsetX = (-dy / len) * 2; // perpendicular offset
+        const offsetY = (dx / len) * 2;
+        
+        // First line
+        const line1 = document.createElementNS(ns, 'line');
+        line1.setAttribute('x1', na.x + offsetX);
+        line1.setAttribute('y1', na.y + offsetY);
+        line1.setAttribute('x2', nb.x + offsetX);
+        line1.setAttribute('y2', nb.y + offsetY);
+        line1.setAttribute('stroke', '#2a4a2a');
+        line1.setAttribute('stroke-width', '2');
+        mapSvg.appendChild(line1);
+        
+        // Second line
+        const line2 = document.createElementNS(ns, 'line');
+        line2.setAttribute('x1', na.x - offsetX);
+        line2.setAttribute('y1', na.y - offsetY);
+        line2.setAttribute('x2', nb.x - offsetX);
+        line2.setAttribute('y2', nb.y - offsetY);
+        line2.setAttribute('stroke', '#2a4a2a');
+        line2.setAttribute('stroke-width', '2');
+        mapSvg.appendChild(line2);
       });
 
-      // Draw edges to YOU
+      // Draw edges to YOU with double lines
       YOU_EDGES.forEach(edge => {
         const fromNode = NODES[edge.from];
-        const line = document.createElementNS(ns, 'line');
-        line.setAttribute('x1', YOU_NODE.x); line.setAttribute('y1', YOU_NODE.y);
-        line.setAttribute('x2', fromNode.x); line.setAttribute('y2', fromNode.y);
-        line.setAttribute('stroke', '#4a2a2a');
-        line.setAttribute('stroke-width', '2');
-        line.setAttribute('stroke-dasharray', '4 3');
-        mapSvg.appendChild(line);
+        
+        // Calculate perpendicular offset
+        const dx = fromNode.x - YOU_NODE.x;
+        const dy = fromNode.y - YOU_NODE.y;
+        const len = Math.sqrt(dx * dx + dy * dy);
+        const offsetX = (-dy / len) * 2;
+        const offsetY = (dx / len) * 2;
+        
+        // First line (red)
+        const line1 = document.createElementNS(ns, 'line');
+        line1.setAttribute('x1', YOU_NODE.x + offsetX);
+        line1.setAttribute('y1', YOU_NODE.y + offsetY);
+        line1.setAttribute('x2', fromNode.x + offsetX);
+        line1.setAttribute('y2', fromNode.y + offsetY);
+        line1.setAttribute('stroke', '#ff3333');
+        line1.setAttribute('stroke-width', '2');
+        mapSvg.appendChild(line1);
+        
+        // Second line (red)
+        const line2 = document.createElementNS(ns, 'line');
+        line2.setAttribute('x1', YOU_NODE.x - offsetX);
+        line2.setAttribute('y1', YOU_NODE.y - offsetY);
+        line2.setAttribute('x2', fromNode.x - offsetX);
+        line2.setAttribute('y2', fromNode.y - offsetY);
+        line2.setAttribute('stroke', '#ff3333');
+        line2.setAttribute('stroke-width', '2');
+        mapSvg.appendChild(line2);
       });
 
       // Draw camera nodes
@@ -2953,6 +3038,13 @@
 
     function triggerOutage() {
       if (outageActive) return; // Block consecutive outages
+      
+      // Don't trigger outage if ghost is active
+      if (ghostActive) {
+        console.log("Outage blocked - ghost is active");
+        return;
+      }
+      
       outageActive = true;
       camPower.fill('ERROR');
       console.log("POWER OUTAGE TRIGGERED!");
@@ -2980,10 +3072,8 @@
     function updateRageUI() {
       const rageFill = document.getElementById('rage-bar-fill');
       if (!rageFill) return;
-      if (!bigStein || bigStein.state === BIGSTEIN_STATE.IDLE) {
-        rageFill.style.width = '0%';
-        return;
-      }
+      
+      // Always show rage accumulation, even before Big Stein spawns
       // Rage bar shows how many seconds have been taken off (max 5 seconds)
       const maxRage = 5; // Maximum 5 seconds can be taken off
       const percent = Math.min(100, (bigStein.rageAccumulation / maxRage) * 100);
