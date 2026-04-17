@@ -282,6 +282,15 @@
       background: #00b432;
     }
 
+    @keyframes ghost-float {
+      0%, 100% {
+        transform: translateY(-50%) translateX(0);
+      }
+      50% {
+        transform: translateY(-50%) translateX(10px);
+      }
+    }
+
     /* Game Over Screen */
     #gameover {
       position: fixed;
@@ -1556,7 +1565,7 @@
       "WARNING: Taking a screenshot triggers a camera flash. Big Stein will notice and become hostile, moving toward your office. The more you provoke him, the faster he moves — watch the Rage Meter on your HUD.",
       "You have limited defensive tools: HONK (H key) to lure him away from nearby cameras, ⚡ FLASH to stun him temporarily (3 uses only), and 📯 DECOY to reset his position completely (3 uses only). Use them wisely.",
       "Big Stein's movements can overload the electrical grid, causing camera outages. If cameras go offline, close the camera view and use the ELECTRICITY PANEL on the left to reboot them. You cannot monitor while cameras are down.",
-      "Something else lurks in the facility. If you see a countdown timer appear, find and click on what triggered it before time runs out. Failure is not an option.",
+      "Something else lurks in the facility — a ghost. When a countdown timer appears on your screen, you have exactly 20 SECONDS to search through all cameras, find the ghost, and CLICK on it before time runs out. Failure means instant death.",
       "Your real goal is survival. Stall Big Stein using every tool available. If you make it to 5 AM, you win. If he reaches you... well, you'll find out.",
       "Good luck, operator."
     ];
@@ -1719,7 +1728,7 @@
     let currentZoomLevel = 0;
     let targetZoomLevel = 0;
     let camOpen = false;
-    let nightStart = Date.now();
+    let nightStart = null; // Timer starts on first screenshot
     let survived = false;
     let gameOver = false;
     let screenshots = 0;
@@ -2017,6 +2026,35 @@
       storyText.textContent = STORYLINE[storyIndex];
       storyButtons.innerHTML = '';
 
+      // Show ghost image on the ghost explanation slide (index 6)
+      const storyBox = document.getElementById('story-box');
+      let ghostPreview = document.getElementById('ghost-preview');
+      
+      if (storyIndex === 6) {
+        // Create ghost preview if it doesn't exist
+        if (!ghostPreview) {
+          ghostPreview = document.createElement('img');
+          ghostPreview.id = 'ghost-preview';
+          ghostPreview.src = 'ghost.png';
+          ghostPreview.style.position = 'absolute';
+          ghostPreview.style.right = '-180px';
+          ghostPreview.style.top = '50%';
+          ghostPreview.style.transform = 'translateY(-50%)';
+          ghostPreview.style.width = '150px';
+          ghostPreview.style.height = 'auto';
+          ghostPreview.style.filter = 'drop-shadow(0 0 20px rgba(255, 51, 51, 0.8))';
+          ghostPreview.style.animation = 'ghost-float 3s ease-in-out infinite';
+          storyBox.appendChild(ghostPreview);
+        } else {
+          ghostPreview.style.display = 'block';
+        }
+      } else {
+        // Hide ghost preview on other slides
+        if (ghostPreview) {
+          ghostPreview.style.display = 'none';
+        }
+      }
+
       const isLast = storyIndex === STORYLINE.length - 1;
       const isFirst = storyIndex === 0;
 
@@ -2057,7 +2095,7 @@
       gameState = 'game';
       storylineDiv.classList.remove('visible');
       gameDiv.classList.add('visible');
-      nightStart = Date.now();
+      nightStart = null; // Timer will start on first screenshot
       screenshots = 0;
       survived = false;
       gameOver = false;
@@ -3623,6 +3661,12 @@
     function takeScreenshot() {
       if (!camOpen) return;
 
+      // Start the night timer on first screenshot
+      if (nightStart === null) {
+        nightStart = Date.now();
+        console.log('Night timer started!');
+      }
+
       // Custom logic if Big Stein is aggressive and on screen
       if (bigStein.state === BIGSTEIN_STATE.AGGRESSIVE && bigStein.camera === activeCam && !bigStein.isInStatic) {
         if (screenshots < REQUIRED_SCREENSHOTS) {
@@ -3763,6 +3807,13 @@
 
     function updateHUD() {
       if (gameState !== 'game' || gameOver) return;
+
+      // If timer hasn't started yet, show 12 AM and 0%
+      if (nightStart === null) {
+        hudHour.textContent = HOURS[0]; // 12 AM
+        hudFill.style.width = '0%';
+        return;
+      }
 
       const elapsed = (Date.now() - nightStart) / 1000;
       const hourIdx = Math.min(Math.floor(elapsed / (NIGHT_SEC / 6)), HOURS.length - 1);
