@@ -1,5 +1,3 @@
-I'll analyze the camera images for ground zones and implement the new system. Here's the updated code:
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,6 +17,27 @@ I'll analyze the camera images for ground zones and implement the new system. He
       user-select: none;
       cursor: default;
       font-family: 'Courier New', monospace;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+       STAGE — Fixed 1920x1080 design surface, uniformly scaled with JS.
+       Everything inside is laid out in pixel coordinates of this canvas.
+       The JS handler (bottom of file) computes a uniform scale factor so the
+       stage fits entirely inside the viewport on ANY screen size, preserving
+       aspect ratio (letterboxed with black bars on non-16:9 screens).
+       Because #stage has a `transform`, it becomes the containing block for
+       its `position: fixed` descendants, so all internal layout is preserved.
+       ═══════════════════════════════════════════════════════════════════════════ */
+    #stage {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 1920px;
+      height: 1080px;
+      transform-origin: center center;
+      transform: translate(-50%, -50%) scale(1);
+      background: #000;
+      overflow: hidden;
     }
 
     /* ═══════════════════════════════════════════════════════════════════════════
@@ -319,8 +338,8 @@ I'll analyze the camera images for ground zones and implement the new system. He
 ═══════════════════════════════════════════════════════════════════════════ */
     #game {
       position: relative;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
       display: none;
     }
 
@@ -339,17 +358,16 @@ I'll analyze the camera images for ground zones and implement the new system. He
       z-index: 0;
     }
 
-    /* Camera viewport */
+    /* Camera viewport — fixed pixel layout inside 1920x1080 stage.
+       Proportions taken from backup.html: top 3%, width 70%, height 60%. */
     #cam-wrap {
       position: absolute;
       z-index: 2;
-      top: 50%;
+      top: 32px;
       left: 50%;
-      transform: translate(-50%, -50%);
-      width: 70vw;
-      height: 50vh;
-      max-width: 900px;
-      max-height: 500px;
+      transform: translateX(-50%);
+      width: 1344px;
+      height: 648px;
       display: none;
     }
 
@@ -765,19 +783,19 @@ I'll analyze the camera images for ground zones and implement the new system. He
       }
     }
 
-    /* Toggle button */
+    /* Toggle button (fixed pixel layout — proportions from backup.html) */
     #toggle-btn {
       position: fixed;
-      bottom: 2vh;
+      bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
       background: none;
       border: 2px solid #00ff50;
       color: #00ff50;
-      padding: 0.8vh 2vw;
+      padding: 12px 24px;
       cursor: pointer;
       font-family: inherit;
-      font-size: clamp(12px, 1.2vw, 16px);
+      font-size: 16px;
       z-index: 5;
       font-weight: bold;
       transition: all 0.2s;
@@ -788,22 +806,20 @@ I'll analyze the camera images for ground zones and implement the new system. He
       color: #000;
     }
 
-    /* Panel with SVG map */
+    /* Panel with SVG map (fixed pixel layout — proportions from backup.html) */
     #panel {
       position: fixed;
-      bottom: 6vh;
+      bottom: 80px;
       left: 50%;
       transform: translateX(-50%);
       background: rgba(0, 0, 0, 0.9);
       border: 2px solid #00ff50;
-      padding: 0.8vh 1vw;
+      padding: 15px;
       color: #00ff50;
       font-family: 'Courier New', monospace;
-      font-size: clamp(11px, 1vw, 14px);
+      font-size: 14px;
       z-index: 4;
       display: none;
-      max-width: 90vw;
-      overflow-x: auto;
       box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.8);
     }
 
@@ -812,17 +828,14 @@ I'll analyze the camera images for ground zones and implement the new system. He
     }
 
     #panel-title {
-      margin-bottom: 0.5vh;
+      margin-bottom: 15px;
       text-align: center;
-      font-size: clamp(11px, 1vw, 14px);
+      font-size: 16px;
     }
 
     #map-svg {
-      width: 100%;
-      max-width: 600px;
-      height: auto;
-      min-height: clamp(120px, 15vh, 180px);
-      max-height: clamp(160px, 20vh, 220px);
+      width: 650px;
+      height: 220px;
     }
 
     /* Camera nodes in SVG */
@@ -835,7 +848,7 @@ I'll analyze the camera images for ground zones and implement the new system. He
       background: #111;
       border: 3px solid #00ff50;
       color: #00ff50;
-      font-size: clamp(9px, 0.9vw, 12px);
+      font-size: 11px;
       cursor: pointer;
       transition: all 0.2s;
       position: relative;
@@ -858,7 +871,7 @@ I'll analyze the camera images for ground zones and implement the new system. He
       position: absolute;
       bottom: 1px;
       right: 3px;
-      font-size: clamp(7px, 0.7vw, 10px);
+      font-size: 9px;
       opacity: 0.7;
     }
 
@@ -872,7 +885,7 @@ I'll analyze the camera images for ground zones and implement the new system. He
       background: #1a0a0a;
       border: 3px solid #ff3333;
       color: #ff3333;
-      font-size: clamp(9px, 0.9vw, 12px);
+      font-size: 11px;
       font-weight: bold;
       text-shadow: 0 0 8px #ff3333;
       animation: you-pulse 2s infinite;
@@ -983,6 +996,7 @@ I'll analyze the camera images for ground zones and implement the new system. He
       flex-direction: column;
       font-family: 'Courier New', monospace;
     }
+    html
 
     #elec-overlay.visible {
       display: flex;
@@ -1288,8 +1302,8 @@ I'll analyze the camera images for ground zones and implement the new system. He
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%) scale(0.1);
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
       z-index: 300;
       display: none;
       object-fit: cover;
@@ -1341,99 +1355,15 @@ I'll analyze the camera images for ground zones and implement the new system. He
       opacity: 1;
     }
 
-    /* Responsive adjustments for smaller screens */
-    @media (max-width: 1400px) {
-      #cam-wrap {
-        width: 75vw;
-        height: 48vh;
-      }
-    }
-
-    @media (max-width: 1024px) {
-      #cam-wrap {
-        width: 80vw;
-        height: 46vh;
-      }
-    }
-
-    @media (max-width: 768px) {
-      #cam-wrap {
-        width: 88vw;
-        height: 44vh;
-      }
-
-      #hud {
-        top: 1vh;
-        left: 1vw;
-      }
-
-      #hud-night {
-        font-size: clamp(16px, 2vh, 20px);
-      }
-
-      #hud-hour {
-        font-size: clamp(13px, 1.6vh, 16px);
-      }
-
-      #hud-bar {
-        width: clamp(120px, 15vw, 180px);
-      }
-
-      #rage-hud {
-        font-size: clamp(11px, 1.4vh, 14px);
-      }
-
-      #rage-bar-wrapper {
-        width: clamp(120px, 15vw, 180px);
-      }
-    }
-
-    @media (max-width: 480px) {
-      #cam-wrap {
-        width: 92vw;
-        height: 42vh;
-      }
-
-      #cam-ui {
-        font-size: clamp(10px, 1.1vw, 13px);
-      }
-    }
-
-    @media (max-height: 700px) {
-      #cam-wrap {
-        height: 40vh;
-      }
-
-      #map-svg {
-        min-height: clamp(100px, 12vh, 140px);
-        max-height: clamp(140px, 16vh, 180px);
-      }
-    }
-
-    @media (max-height: 600px) {
-      #cam-wrap {
-        height: 38vh;
-      }
-
-      #panel {
-        bottom: 5vh;
-        padding: 0.5vh 0.8vw;
-      }
-
-      #toggle-btn {
-        bottom: 1.5vh;
-        padding: 0.6vh 1.5vw;
-      }
-
-      #map-svg {
-        min-height: clamp(80px, 10vh, 120px);
-        max-height: clamp(120px, 14vh, 160px);
-      }
-    }
+    /* Responsive scaling is handled by the #stage transform at runtime —
+       no media queries needed: the entire 1920x1080 canvas scales as one. */
   </style>
 </head>
 
 <body>
+
+<!-- Fixed 1920x1080 design stage — uniformly scaled at runtime to fit any viewport. -->
+<div id="stage">
 
   <!-- Loading Screen -->
   <div id="loader">
@@ -1565,6 +1495,8 @@ I'll analyze the camera images for ground zones and implement the new system. He
 
   <img id="jumpscare-final" src="example.png" alt="Jumpscare">
 
+</div><!-- /#stage -->
+
   <!-- Audio -->
   <audio id="churchbell-audio" src="churchbell.mp3" preload="auto"></audio>
   <audio id="honk-audio" src="honk.mp3" preload="auto"></audio>
@@ -1583,6 +1515,37 @@ I'll analyze the camera images for ground zones and implement the new system. He
   <audio id="heartbeat-audio" src="heartbeat.mp3" preload="auto" loop></audio>
 
   <script>
+    // ═══════════════════════════════════════════════════════════════════════════
+    // STAGE SCALER — uniformly scale the 1920x1080 design surface to fit any
+    // viewport while preserving aspect ratio (letterboxed on non-16:9 screens).
+    // This guarantees that every element keeps its exact pixel proportions and
+    // relative positions no matter what size or aspect ratio the player's
+    // screen happens to be. Nothing ever overlaps or gets deformed.
+    // ═══════════════════════════════════════════════════════════════════════════
+    (function () {
+      const BASE_W = 1920;
+      const BASE_H = 1080;
+      const stage = document.getElementById('stage');
+
+      function fitStage() {
+        if (!stage) return;
+        const scale = Math.min(
+          window.innerWidth  / BASE_W,
+          window.innerHeight / BASE_H
+        );
+        stage.style.transform = 'translate(-50%, -50%) scale(' + scale + ')';
+        // Expose for any code that wants to convert viewport<->stage coords.
+        document.documentElement.style.setProperty('--game-scale', scale);
+      }
+
+      window.addEventListener('resize', fitStage, { passive: true });
+      window.addEventListener('orientationchange', fitStage, { passive: true });
+      // Re-fit once fonts/images settle and after load, just in case.
+      document.addEventListener('DOMContentLoaded', fitStage);
+      window.addEventListener('load', fitStage);
+      fitStage();
+    })();
+
     // ═══════════════════════════════════════════════════════════════════════════
     // STORYLINE DATA
     // ═══════════════════════════════════════════════════════════════════════════
@@ -2033,7 +1996,7 @@ I'll analyze the camera images for ground zones and implement the new system. He
 
       const isLast = storyIndex === STORYLINE.length - 1;
       const isFirst = storyIndex === 0;
-
+      html
       if (!isFirst) {
         const backBtn = document.createElement('button');
         backBtn.className = 'story-btn';
@@ -3820,8 +3783,13 @@ I'll analyze the camera images for ground zones and implement the new system. He
       if (activeCam !== ghostCamera) return;
 
       const rect = camCanvas.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      const clickY = e.clientY - rect.top;
+      // Convert viewport click coords to canvas internal pixel coords.
+      // Works regardless of any CSS scaling applied to the canvas (including
+      // the #stage transform used for uniform viewport scaling).
+      const scaleX = camCanvas.width  / rect.width;
+      const scaleY = camCanvas.height / rect.height;
+      const clickX = (e.clientX - rect.left) * scaleX;
+      const clickY = (e.clientY - rect.top)  * scaleY;
 
       const canvasW = camCanvas.width;
       const canvasH = camCanvas.height;
